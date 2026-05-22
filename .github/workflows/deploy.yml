@@ -30,6 +30,8 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build (mainnet)
+        env:
+          NODE_OPTIONS: --max-old-space-size=6144
         run: pnpm build:mainnet
 
       - name: Deploy to Cloudflare Pages
