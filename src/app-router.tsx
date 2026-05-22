@@ -17,7 +17,10 @@ import PublicDashboard from "@/pages/dashboard";
 import Tutorial      from "@/pages/tutorial";
 import NotFound      from "@/pages/not-found";
 
-const AppContainer = lazy(() => import("@app/App"));
+// Lazy-load the dashboard shell — it wraps its inner routes in
+// <WouterRouter base="/app">, which strips the /app prefix so the inner
+// Switch can match routes like "/strategy" instead of "/app/strategy".
+const AppContainer = lazy(() => import("@app/dashboard-shell"));
 
 function Loading() {
   return (
