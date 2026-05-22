@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Skeleton } from "@app/components/ui/skeleton";
-import { Badge } from "@app/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Badge } from "@/components/ui/badge";
 import { fetchExchangeDepth } from "@app/lib/api";
 import { useTranslation } from "react-i18next";
 import { ExchangeLogo } from "@app/components/exchange-logo";

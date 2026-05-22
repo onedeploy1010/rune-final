@@ -78,6 +78,8 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.48.0",
+    "graphql": "^16.14.0",
+    "graphql-request": "^7.4.0",
     "i18next": "^26.0.8",
     "jspdf": "^4.2.1",
     "jspdf-autotable": "^5.0.7",

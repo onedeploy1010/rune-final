@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
-import { Card, CardContent } from "@app/components/ui/card";
-import { Badge } from "@app/components/ui/badge";
-import { Button } from "@app/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { SiBitcoin, SiEthereum } from "react-icons/si";
 import type { PredictionMarket } from "@app-shared/types";
 

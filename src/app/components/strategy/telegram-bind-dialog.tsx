@@ -5,10 +5,10 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { MessageCircle, CheckCircle2 } from "lucide-react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@app/components/ui/dialog";
-import { Button } from "@app/components/ui/button";
-import { Input } from "@app/components/ui/input";
-import { Card, CardContent } from "@app/components/ui/card";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@app/hooks/use-toast";
 
 interface TelegramBindDialogProps {

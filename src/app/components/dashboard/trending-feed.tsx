@@ -1,6 +1,6 @@
-import { Badge } from "@app/components/ui/badge";
+import { Badge } from "@/components/ui/badge";
 import { Activity } from "lucide-react";
-import { Skeleton } from "@app/components/ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 import type { CryptoPrice } from "@app/hooks/use-crypto-price";
 import { useTranslation } from "react-i18next";
 

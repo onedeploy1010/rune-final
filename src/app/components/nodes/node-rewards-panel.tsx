@@ -1,8 +1,8 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useActiveAccount } from "thirdweb/react";
-import { Card, CardContent } from "@app/components/ui/card";
-import { Skeleton } from "@app/components/ui/skeleton";
+import { Card, CardContent } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid,
 } from "recharts";

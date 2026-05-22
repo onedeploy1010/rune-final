@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@app/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Loader2, Zap, ShieldCheck } from "lucide-react";
 import { NODE_PLANS } from "@app/lib/data";
 import { usePayment, getPaymentStatusLabel } from "@app/hooks/use-payment";

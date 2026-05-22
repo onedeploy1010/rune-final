@@ -1,7 +1,7 @@
-import { Card, CardContent } from "@app/components/ui/card";
-import { Button } from "@app/components/ui/button";
-import { Badge } from "@app/components/ui/badge";
-import { Skeleton } from "@app/components/ui/skeleton";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Link2, Copy, Users, UserPlus, ArrowDownToLine } from "lucide-react";
 import { useToast } from "@app/hooks/use-toast";
 import { copyText } from "@app/lib/copy";

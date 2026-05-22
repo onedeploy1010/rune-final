@@ -5,15 +5,15 @@
  */
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Badge } from "@app/components/ui/badge";
-import { Skeleton } from "@app/components/ui/skeleton";
+import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
 import {
   TrendingUp, TrendingDown, Minus, Brain, Target,
   BarChart3, Sparkles, ChevronRight, X, Activity,
   Cpu, Eye, Layers, Search as SearchIcon, Zap,
 } from "lucide-react";
-import { Dialog, DialogContent } from "@app/components/ui/dialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { AiConsoleButton } from "@app/components/strategy/ai-thinking-console";
 import { TradeMatchingEngine } from "@app/components/strategy/trade-matching-engine";
 import { usePaperTrades, modelTargets, type PaperTrade as RealPaperTrade } from "@app/lib/ai-bot-feed";

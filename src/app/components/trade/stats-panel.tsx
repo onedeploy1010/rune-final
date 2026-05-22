@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { Card, CardContent } from "@app/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 
 interface TradeStats {
   total: number;

@@ -1,5 +1,5 @@
-import { Card, CardContent } from "@app/components/ui/card";
-import { Skeleton } from "@app/components/ui/skeleton";
+import { Card, CardContent } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Wallet } from "lucide-react";
 import { useActiveAccount } from "thirdweb/react";
 import { useQuery } from "@tanstack/react-query";

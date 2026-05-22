@@ -11,9 +11,9 @@
 
 import { useState } from "react";
 import { Lock, Sparkles, TrendingUp, Loader2, Check } from "lucide-react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@app/components/ui/dialog";
-import { Input } from "@app/components/ui/input";
-import { Button } from "@app/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { useToast } from "@app/hooks/use-toast";
 import { useActiveAccount, useSendTransaction } from "thirdweb/react";
 import { prepareContractCall, waitForReceipt, getContract } from "thirdweb";

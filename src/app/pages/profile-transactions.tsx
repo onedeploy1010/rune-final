@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Card, CardContent } from "@app/components/ui/card";
-import { Button } from "@app/components/ui/button";
-import { Badge } from "@app/components/ui/badge";
-import { Skeleton } from "@app/components/ui/skeleton";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useActiveAccount } from "thirdweb/react";
 import { formatCompact } from "@app/lib/constants";
 import { ArrowLeft, Calendar, WalletCards, ExternalLink, Link, Filter } from "lucide-react";

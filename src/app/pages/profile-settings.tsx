@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import i18n from "@app/lib/i18n";
-import { Card, CardContent } from "@app/components/ui/card";
-import { Button } from "@app/components/ui/button";
-import { Badge } from "@app/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Globe, Bell, Shield, Volume2, ChevronRight, Check } from "lucide-react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@app/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { useLocation } from "wouter";
 
 const LANGUAGES = [

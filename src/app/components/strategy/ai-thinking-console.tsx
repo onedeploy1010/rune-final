@@ -20,7 +20,7 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Terminal, X, Brain } from "lucide-react";
-import { Dialog, DialogContent } from "@app/components/ui/dialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { useConsoleLogs, type ConsoleLog } from "@app/lib/ai-bot-feed";
 
 interface ThinkingLine {

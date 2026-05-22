@@ -1,5 +1,5 @@
-import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@app/components/ui/dialog";
-import { Button } from "@app/components/ui/button";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import { Hourglass } from "lucide-react";
 import { useTranslation } from "react-i18next";
 

@@ -2,11 +2,11 @@ import { useState, useMemo } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useActiveAccount } from "thirdweb/react";
 import { useTranslation } from "react-i18next";
-import { Input } from "@app/components/ui/input";
-import { Badge } from "@app/components/ui/badge";
-import { Button } from "@app/components/ui/button";
-import { Skeleton } from "@app/components/ui/skeleton";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@app/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import {
   getAiPredictions, fetchPolymarkets, getNewsPredictions,
   getPredictionBets, placePredictionBet,

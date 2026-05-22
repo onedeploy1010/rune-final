@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, useRef } from "react";
-import { Skeleton } from "@app/components/ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 import { TrendingUp, TrendingDown, Minus, Sparkles, Brain, Zap, Target, Activity } from "lucide-react";
 import { formatUSD } from "@app/lib/constants";
 import { useTranslation } from "react-i18next";

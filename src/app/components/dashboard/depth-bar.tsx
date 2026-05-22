@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { Card, CardContent } from "@app/components/ui/card";
-import { Skeleton } from "@app/components/ui/skeleton";
-import { Badge } from "@app/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Badge } from "@/components/ui/badge";
 import { useTranslation } from "react-i18next";
 
 interface DepthBarProps {

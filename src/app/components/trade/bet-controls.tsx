@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Minus, Plus, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
-import { Button } from "@app/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { useToast } from "@app/hooks/use-toast";
 import { BET_DEFAULTS } from "@app/lib/data";
 

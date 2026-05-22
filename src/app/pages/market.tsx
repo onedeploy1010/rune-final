@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Card, CardContent } from "@app/components/ui/card";
-import { Badge } from "@app/components/ui/badge";
-import { Button } from "@app/components/ui/button";
-import { Skeleton } from "@app/components/ui/skeleton";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { formatUSD, formatCompact } from "@app/lib/constants";
 import { ArrowLeft, ChevronLeft, ChevronRight, Activity, Flame, Eye, Globe, Calendar, TrendingUp, TrendingDown } from "lucide-react";
 import { useLocation } from "wouter";

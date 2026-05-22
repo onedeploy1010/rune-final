@@ -6,7 +6,7 @@ import {
 } from "recharts";
 import { motion } from "framer-motion";
 import { TrendingUp, Layers, BarChart2, Target, Zap, Rocket, Flame } from "lucide-react";
-import { Card, CardContent } from "@app/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { useTranslation } from "react-i18next";
 import { usePoolStatsRune } from "@app/lib/data-rune";
 

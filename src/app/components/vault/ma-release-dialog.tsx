@@ -12,10 +12,10 @@
  */
 
 import { useState, useEffect } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@app/components/ui/dialog";
-import { Button } from "@app/components/ui/button";
-import { Input } from "@app/components/ui/input";
-import { Badge } from "@app/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
 import { Flame, Clock, Sparkles, Loader2, CheckCircle2 } from "lucide-react";
 import { useActiveAccount, useSendTransaction } from "thirdweb/react";
 import { prepareContractCall, readContract, waitForReceipt, getContract } from "thirdweb";

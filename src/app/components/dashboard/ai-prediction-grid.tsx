@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
-import { Card, CardContent } from "@app/components/ui/card";
-import { Button } from "@app/components/ui/button";
-import { Badge } from "@app/components/ui/badge";
-import { Skeleton } from "@app/components/ui/skeleton";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Sparkles, TrendingUp, TrendingDown, Minus, Clock, Brain } from "lucide-react";
 import { formatUSD } from "@app/lib/constants";
 import { getAiPrediction } from "@app/lib/api";

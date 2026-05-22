@@ -1,6 +1,6 @@
-import { Card, CardContent } from "@app/components/ui/card";
-import { Button } from "@app/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@app/components/ui/dialog";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { VAULT_PLANS } from "@app/lib/data";
 import { formatDailyRate } from "@app/lib/formulas";
 import { Sparkles, CheckCircle2 } from "lucide-react";

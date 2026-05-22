@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, CalendarDays } from "lucide-react";
-import { Button } from "@app/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { getCalendarDays } from "./strategy-header";
 import { useDailyPnl } from "@app/lib/ai-bot-feed";

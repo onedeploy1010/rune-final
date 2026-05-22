@@ -1,8 +1,8 @@
-import { Badge } from "@app/components/ui/badge";
+import { Badge } from "@/components/ui/badge";
 import { TrendingUp, TrendingDown } from "lucide-react";
 import { formatUSD } from "@app/lib/constants";
 import type { CryptoPrice } from "@app/hooks/use-crypto-price";
-import { Skeleton } from "@app/components/ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useTranslation } from "react-i18next";
 
 interface PriceHeaderProps {

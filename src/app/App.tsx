@@ -2,8 +2,8 @@ import { Switch, Route, Link, useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { authWallet, getProfile, getProfileByRefCode } from "./lib/api";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { Toaster } from "@app/components/ui/toaster";
-import { TooltipProvider } from "@app/components/ui/tooltip";
+import { Toaster } from "@/components/ui/toaster";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThirdwebProvider, ConnectButton, useActiveAccount } from "thirdweb/react";
 import { createWallet } from "thirdweb/wallets";
 import { useThirdwebClient } from "@app/hooks/use-thirdweb";
@@ -13,7 +13,7 @@ import { DesktopSidebar } from "@app/components/desktop-sidebar";
 import LangSwitcher from "@app/components/lang-switcher";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@app/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { useToast } from "@app/hooks/use-toast";
 
 import Dashboard from "@app/pages/dashboard";
@@ -32,8 +32,6 @@ import ProfileSwapPage from "@app/pages/profile-swap";
 import ProfileMAPage from "@app/pages/profile-ma";
 import ProfileVaultPage from "@app/pages/profile-vault";
 import MarketPage from "@app/pages/market";
-import AdminApp from "@app/admin/admin-app";
-import ProviderApp from "@app/provider/provider-app";
 import CopyTradingPage from "@app/pages/copy-trading";
 import NotFound from "@app/pages/not-found";
 
@@ -472,11 +470,9 @@ function RootRouter() {
   const [location] = useLocation();
 
   if (location.startsWith("/admin")) {
-    return <AdminApp />;
   }
 
   if (location.startsWith("/provider")) {
-    return <ProviderApp />;
   }
 
   return <MainApp />;

@@ -1,5 +1,5 @@
 import { useMemo, useEffect, useState } from "react";
-import { Skeleton } from "@app/components/ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 import { PageEnter, PageEnterStagger, PageEnterItem } from "@app/components/page-enter";
 import { useActiveAccount } from "thirdweb/react";
 import {

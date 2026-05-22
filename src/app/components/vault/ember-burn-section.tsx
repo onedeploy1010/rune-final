@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Button } from "@app/components/ui/button";
-import { Input } from "@app/components/ui/input";
-import { Badge } from "@app/components/ui/badge";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@app/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Flame, Sparkles, Trophy, Coins, AlertCircle, Loader2, ChevronDown, ChevronUp, ArrowRight, ChevronRight } from "lucide-react";
 import { NotReadyDialog } from "./not-ready-dialog";
 import { CollapsibleInfoCard } from "@app/components/vault/collapsible-info-card";

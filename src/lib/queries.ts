@@ -5,7 +5,14 @@
 // separate round-trip and to match api-server's tvl-string parsing rules.
 
 import { useQuery } from "@tanstack/react-query";
+import { GraphQLClient } from "graphql-request";
 import { supabase } from "./supabase";
+
+// Temporary GraphQL client pointing at the still-live Railway api-server.
+// TODO(Phase 4): rewrite consumers (hooks/rune/use-team.ts) to query Supabase
+// directly, then drop graphql-request from dependencies.
+const GRAPHQL_ENDPOINT = "https://workspaceapi-server-production-963b.up.railway.app/api/graphql";
+export const graphqlClient = new GraphQLClient(GRAPHQL_ENDPOINT, { credentials: "omit" });
 
 export type ProjectRiskLevel = "low" | "medium" | "high";
 
@@ -173,16 +180,55 @@ import {
 } from "./calculators";
 import { useMutation } from "@tanstack/react-query";
 
+// Orval emitted both a value object (.Daily, .Weekly, ...) and a type alias
+// with the same name. Provide both.
 export const ApyCalculatorInputCompoundFrequency = {
   Daily: "daily", Weekly: "weekly", Monthly: "monthly", Yearly: "yearly",
 } as const;
+export type ApyCalculatorInputCompoundFrequency =
+  (typeof ApyCalculatorInputCompoundFrequency)[keyof typeof ApyCalculatorInputCompoundFrequency];
 
+// Orval-style mutation hooks: accept `{ data: <input> }` shape so existing
+// call sites that did `mutate({ data: { principal, ... } })` keep working.
 export function useCalculateApy() {
-  return useMutation<ApyResult, Error, ApyInput>({ mutationFn: async (input) => _apy(input) });
+  return useMutation<ApyResult, Error, { data: ApyInput }>({
+    mutationFn: async ({ data }) => _apy(data),
+  });
 }
 export function useSimulateInvestment() {
-  return useMutation<InvestmentResult, Error, InvestmentInput>({ mutationFn: async (input) => _sim(input) });
+  return useMutation<InvestmentResult, Error, { data: InvestmentInput }>({
+    mutationFn: async ({ data }) => _sim(data),
+  });
 }
 export function useCalculateImpermanentLoss() {
-  return useMutation<IlResult, Error, IlInput>({ mutationFn: async (input) => _il(input) });
+  return useMutation<IlResult, Error, { data: IlInput }>({
+    mutationFn: async ({ data }) => _il(data),
+  });
+}
+
+// Rune calculator hooks (similar Orval shape).
+import {
+  calculateRuneReturns as _runeCalc,
+  calculateRuneBurnStake as _runeBurn,
+  type RuneCalcInput,
+  type RuneCalcResult,
+  type BurnStakeInput,
+  type BurnStakeResult,
+} from "./calculators";
+
+export const RuneCalculatorInputNodeLevel = {
+  Initial: "initial", Mid: "mid", Advanced: "advanced", Super: "super", Founder: "founder",
+} as const;
+export type RuneCalculatorInputNodeLevel =
+  (typeof RuneCalculatorInputNodeLevel)[keyof typeof RuneCalculatorInputNodeLevel];
+
+export function useCalculateRuneReturns() {
+  return useMutation<RuneCalcResult | null, Error, { data: RuneCalcInput }>({
+    mutationFn: async ({ data }) => _runeCalc(data),
+  });
+}
+export function useCalculateRuneBurnStake() {
+  return useMutation<BurnStakeResult, Error, { data: BurnStakeInput }>({
+    mutationFn: async ({ data }) => _runeBurn(data),
+  });
 }

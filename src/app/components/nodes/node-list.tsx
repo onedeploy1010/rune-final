@@ -1,5 +1,5 @@
 import { Server } from "lucide-react";
-import { Card, CardContent } from "@app/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import type { NodeMembership } from "@app-shared/types";
 import { NodeCard } from "./node-card";
 import { useTranslation } from "react-i18next";

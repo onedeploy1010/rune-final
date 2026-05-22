@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@app/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Coins } from "lucide-react";
 import { useRunePrice } from "@app/hooks/use-rune-price";
 import type { NodePoolInfo } from "@app-shared/types";

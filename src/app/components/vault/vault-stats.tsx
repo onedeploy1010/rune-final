@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
-import { Card, CardContent } from "@app/components/ui/card";
-import { Badge } from "@app/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { Clock, Users, Lock, Layers } from "lucide-react";
-import { Skeleton } from "@app/components/ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 import { VAULT_PLANS } from "@app/lib/data";
 import { useTranslation } from "react-i18next";
 import { useHLVault } from "@app/hooks/use-hl-vault";

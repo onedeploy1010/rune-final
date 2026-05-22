@@ -1,4 +1,4 @@
-import { Tabs, TabsList, TabsTrigger } from "@app/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { DASHBOARD_ASSETS } from "@app/lib/data";
 
 interface AssetTabsProps {

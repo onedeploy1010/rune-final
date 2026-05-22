@@ -1,4 +1,4 @@
-import { Badge } from "@app/components/ui/badge";
+import { Badge } from "@/components/ui/badge";
 import { CheckCircle2, Clock, XCircle } from "lucide-react";
 import type { NodeMilestone } from "@app-shared/types";
 import { useTranslation } from "react-i18next";

@@ -13,8 +13,8 @@ import {
 } from "lightweight-charts";
 import { formatUSD } from "@app/lib/constants";
 import type { ChartDataPoint, ChartTimeframe, OhlcDataPoint } from "@app/hooks/use-crypto-price";
-import { Skeleton } from "@app/components/ui/skeleton";
-import { Badge } from "@app/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Badge } from "@/components/ui/badge";
 import { Sparkles, CandlestickChart, LineChart, AreaChart, BarChart3 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 

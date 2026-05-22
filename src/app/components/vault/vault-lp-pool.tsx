@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Skeleton } from "@app/components/ui/skeleton";
-import { Card, CardContent } from "@app/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Card, CardContent } from "@/components/ui/card";
 import { Layers, Shield, TrendingUp, RefreshCw, Wallet } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { cn } from "@app/lib/utils";

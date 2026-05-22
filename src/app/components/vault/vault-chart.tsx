@@ -1,6 +1,6 @@
 import { AreaChart, Area, ResponsiveContainer } from "recharts";
-import { Button } from "@app/components/ui/button";
-import { Badge } from "@app/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { TrendingUp, Users, Lock } from "lucide-react";
 import { VAULT_CHART_PERIODS, type VaultChartPeriod } from "@app/lib/data";
 import { generateVaultChartData } from "@app/lib/formulas";
