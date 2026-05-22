@@ -27,7 +27,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "@marketing/*": ["./src/marketing/*"],
-      "@app/*": ["./src/app/*"]
+      "@app/*": ["./src/app/*"],
+      "@app-shared/*": ["./src/app-shared/*"]
     }
   }
 }

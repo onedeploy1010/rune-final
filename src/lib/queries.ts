@@ -1,4 +1,4 @@
-// Supabase query hooks — replaces @rune/api-client-react's
+// Supabase query hooks — replaces @/lib/queries's
 // useListProjects / useGetProject / useGetProjectsSummary. Schema mirrors the
 // api-server's `projects` table (Drizzle: lib/db/src/schema/projects.ts).
 // Summary aggregation is computed client-side from the same fetch to avoid a
@@ -143,3 +143,46 @@ export function useGetProjectsSummary() {
 // constant so call sites that did `const { data: overview } = useGetRuneOverview()`
 // can switch to: `import { PROTOCOL_OVERVIEW as overview } from '@/lib/rune-overview'`.
 export { PROTOCOL_OVERVIEW } from "./rune-overview";
+import { PROTOCOL_OVERVIEW as _OVERVIEW } from "./rune-overview";
+
+// Backwards-compatible shim for pages that used `useGetRuneOverview()`. The
+// data is static now, so this is a sync stand-in shaped like a useQuery result.
+export function useGetRuneOverview() {
+  return {
+    data: _OVERVIEW,
+    isLoading: false,
+    isError: false,
+    error: null as Error | null,
+    refetch: () => Promise.resolve({ data: _OVERVIEW }),
+  };
+}
+
+// Tool calculator shims. Original Orval hooks were useMutation-shaped:
+// returned `{ mutate, mutateAsync, data, isPending, ... }`. We expose
+// the same shape backed by sync calculators.
+import {
+  calculateApy as _apy,
+  simulateInvestment as _sim,
+  calculateImpermanentLoss as _il,
+  type ApyInput,
+  type ApyResult,
+  type InvestmentInput,
+  type InvestmentResult,
+  type IlInput,
+  type IlResult,
+} from "./calculators";
+import { useMutation } from "@tanstack/react-query";
+
+export const ApyCalculatorInputCompoundFrequency = {
+  Daily: "daily", Weekly: "weekly", Monthly: "monthly", Yearly: "yearly",
+} as const;
+
+export function useCalculateApy() {
+  return useMutation<ApyResult, Error, ApyInput>({ mutationFn: async (input) => _apy(input) });
+}
+export function useSimulateInvestment() {
+  return useMutation<InvestmentResult, Error, InvestmentInput>({ mutationFn: async (input) => _sim(input) });
+}
+export function useCalculateImpermanentLoss() {
+  return useMutation<IlResult, Error, IlInput>({ mutationFn: async (input) => _il(input) });
+}

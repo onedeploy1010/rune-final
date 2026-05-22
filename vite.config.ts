@@ -29,6 +29,7 @@ export default defineConfig({
       "@": path.resolve(import.meta.dirname, "src"),
       "@marketing": path.resolve(import.meta.dirname, "src/marketing"),
       "@app": path.resolve(import.meta.dirname, "src/app"),
+      "@app-shared": path.resolve(import.meta.dirname, "src/app-shared"),
     },
     dedupe: ["react", "react-dom"],
   },
