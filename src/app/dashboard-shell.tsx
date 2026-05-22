@@ -1,3 +1,4 @@
+import "./index.css";
 import { Switch, Route, Router as WouterRouter, Link } from "wouter";
 import { lazy, Suspense } from "react";
 import { motion } from "framer-motion";

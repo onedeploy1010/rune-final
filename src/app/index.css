@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=DM+Mono:wght@300;400;500&display=swap');
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Reference the root tailwind config (defined in ../index.css) so utilities
+   like `border-border`, `bg-background` resolve here. v4 replacement for the
+   old v3 @tailwind base/components/utilities triplet. */
+@reference "../index.css";
 
 :root {
   --button-outline: rgba(0,0,0, .10);
