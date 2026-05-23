@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { gql } from "graphql-request";
+import { supabase } from "@/lib/supabase";
 import { graphqlClient } from "@/lib/queries";
 import { useDemoStore } from "@/lib/demo-store";
 import { getMockPersonalStats, getMockTeam, getMockRewards } from "@/lib/demo-mock-data";
 import type { NodeId } from "@/lib/thirdweb/contracts";
 
-// ── GraphQL shapes (mirror the server-side Pothos types) ────────────────────
+// ── Row shapes ──────────────────────────────────────────────────────────────
 export interface ReferrerRow {
   user: string;
   referrer: string;
@@ -42,32 +43,15 @@ export interface PersonalStats {
   directPurchaseCount: number;
   directTotalInvested: string;
   totalDownstreamInvested: string;
-  /** USDT the connected user earned on-chain as the direct referrer (18-dec). */
   directCommission: string;
-  /** Gross commission volume across the entire transitive team (18-dec). */
   teamCommission: string;
-  /** Per-nodeId histogram of direct downlines' purchased tiers. */
   directByTier: { nodeId: number; count: number }[];
-  /** Per-nodeId histogram of transitive-downstream purchased tiers. */
   teamByTier: { nodeId: number; count: number }[];
   hasPurchased: boolean;
   ownedNodeId: number | null;
 }
 
-// ── Queries ─────────────────────────────────────────────────────────────────
-
-const TEAM_QUERY = gql`
-  query Team($address: Address!, $limit: Int, $offset: Int) {
-    team(address: $address, limit: $limit, offset: $offset) {
-      user
-      referrer
-      boundAt
-      blockNumber
-      txHash
-    }
-  }
-`;
-
+// ── Remaining GraphQL queries (rune_rewards table not yet mirrored to Supabase) ─
 const PERSONAL_STATS_QUERY = gql`
   query PersonalStats($address: Address!) {
     personalStats(address: $address) {
@@ -88,18 +72,6 @@ const PERSONAL_STATS_QUERY = gql`
   }
 `;
 
-const PURCHASES_QUERY = gql`
-  query UserPurchases($user: Address!) {
-    purchases(user: $user, limit: 50) {
-      user
-      nodeId
-      amount
-      paidAt
-      txHash
-    }
-  }
-`;
-
 const REWARDS_QUERY = gql`
   query Rewards($address: Address!, $limit: Int, $offset: Int) {
     rewards(address: $address, limit: $limit, offset: $offset) {
@@ -116,50 +88,94 @@ const REWARDS_QUERY = gql`
   }
 `;
 
-// ── Hooks ───────────────────────────────────────────────────────────────────
-
-/**
- * Shared react-query options for the GraphQL hooks below.
- *
- * The indexer endpoint lives on the api-server; if the server hasn't been
- * redeployed with the GraphQL/indexer code yet, every query 404s. Default
- * react-query behaviour would then retry each call 3× with backoff on
- * every render / focus / reconnect — fills the console with `POST …
- * /api/graphql 404` and pins the network tab.
- *
- * Gate with `retry: false` so a single 404 is enough to surface an empty
- * state, and extend the stale window so navigating between tabs doesn't
- * hammer the endpoint.
- */
 const graphqlQueryOpts = {
   retry: false as const,
   staleTime: 60_000,
   refetchOnWindowFocus: false,
 };
 
+// ── Hooks ───────────────────────────────────────────────────────────────────
+
 /**
- * Direct downstream of an address (one hop). Use for the Team tab's top
- * level — recursion is handled by rendering children recursively.
+ * Direct downstream of an address (one hop). Migrated to Supabase — reads
+ * `rune_referrers` rows where `referrer = $address`. The Supabase view sits
+ * downstream of the same on-chain indexer the GraphQL API used, so data
+ * parity is preserved.
  */
 export function useTeam(address: string | undefined, opts?: { limit?: number; offset?: number }) {
   const { isDemoMode, demoNodeId } = useDemoStore.getState();
   return useQuery({
     queryKey: ["rune", "team", isDemoMode ? "demo" : address, opts?.limit, opts?.offset],
     enabled: isDemoMode || !!address,
-    ...graphqlQueryOpts,
-    queryFn: async () => {
+    retry: false,
+    staleTime: 60_000,
+    refetchOnWindowFocus: false,
+    queryFn: async (): Promise<ReferrerRow[]> => {
       if (isDemoMode && demoNodeId) return getMockTeam(demoNodeId as NodeId);
-      const data = await graphqlClient.request<{ team: ReferrerRow[] }>(TEAM_QUERY, {
-        address,
-        limit: opts?.limit ?? 100,
-        offset: opts?.offset ?? 0,
-      });
-      return data.team;
+      const lower = address!.toLowerCase();
+      const limit  = opts?.limit  ?? 100;
+      const offset = opts?.offset ?? 0;
+      const { data, error } = await supabase
+        .from("rune_referrers")
+        .select("user, referrer, bound_at, block_number, tx_hash")
+        .eq("referrer", lower)
+        .order("bound_at", { ascending: false })
+        .range(offset, offset + limit - 1);
+      if (error) throw error;
+      return (data ?? []).map((r) => ({
+        user: r.user as string,
+        referrer: r.referrer as string,
+        boundAt: r.bound_at as string,
+        blockNumber: r.block_number as number,
+        txHash: r.tx_hash as string,
+      }));
     },
   });
 }
 
-/** Aggregate stats for the Overview card. */
+/**
+ * User's on-chain purchase history. Migrated to Supabase — reads
+ * `rune_purchases` (one row per wallet under the current spec where each
+ * wallet can buy once).
+ */
+export function useUserPurchases(address: string | undefined) {
+  return useQuery({
+    queryKey: ["rune", "purchases", address],
+    enabled: !!address,
+    retry: false,
+    staleTime: 60_000,
+    refetchOnWindowFocus: false,
+    queryFn: async (): Promise<PurchaseRow[]> => {
+      const lower = address!.toLowerCase();
+      const { data, error } = await supabase
+        .from("rune_purchases")
+        .select("user, node_id, amount, paid_at, tx_hash")
+        .eq("user", lower)
+        .order("paid_at", { ascending: false })
+        .limit(50);
+      if (error) throw error;
+      return (data ?? []).map((r) => ({
+        user: r.user as string,
+        nodeId: r.node_id as number,
+        amount: String(r.amount),
+        paidAt: r.paid_at as string,
+        txHash: r.tx_hash as string,
+      }));
+    },
+  });
+}
+
+/**
+ * Aggregate stats (direct + transitive team). Still on GraphQL because:
+ *   1. The transitive downstream walk is a recursive CTE on the server.
+ *   2. The `directCommission` / `teamCommission` fields require the
+ *      `rune_rewards` table, which is not yet mirrored to Supabase.
+ *
+ * TODO(api-server final cutover): write a `rune_rewards` table from the
+ * indexer (mirror of the GraphQL `rewards` resolver), then add a Postgres
+ * RPC function that returns this aggregate, then swap this body to call
+ * `supabase.rpc('rune_personal_stats', { addr })`.
+ */
 export function usePersonalStats(address: string | undefined) {
   const { isDemoMode, demoNodeId } = useDemoStore.getState();
   return useQuery({
@@ -177,25 +193,9 @@ export function usePersonalStats(address: string | undefined) {
   });
 }
 
-/** User's on-chain purchase history (single row since each wallet can buy once). */
-export function useUserPurchases(address: string | undefined) {
-  return useQuery({
-    queryKey: ["rune", "purchases", address],
-    enabled: !!address,
-    ...graphqlQueryOpts,
-    queryFn: async () => {
-      const data = await graphqlClient.request<{ purchases: PurchaseRow[] }>(PURCHASES_QUERY, {
-        user: address,
-      });
-      return data.purchases;
-    },
-  });
-}
-
 /**
- * Per-payout reward detail for the dashboard Rewards tab — one row per
- * direct downline's purchase, with the USDT commission that flowed to
- * the viewer's wallet on-chain.
+ * Per-payout commission rows. Still on GraphQL because `rune_rewards` is
+ * not yet a Supabase table — same TODO as `usePersonalStats`.
  */
 export function useRewards(address: string | undefined, opts?: { limit?: number; offset?: number }) {
   const { isDemoMode, demoNodeId } = useDemoStore.getState();
