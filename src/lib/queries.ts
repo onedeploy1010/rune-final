@@ -5,14 +5,7 @@
 // separate round-trip and to match api-server's tvl-string parsing rules.
 
 import { useQuery } from "@tanstack/react-query";
-import { GraphQLClient } from "graphql-request";
 import { supabase } from "./supabase";
-
-// Temporary GraphQL client pointing at the still-live Railway api-server.
-// TODO(Phase 4): rewrite consumers (hooks/rune/use-team.ts) to query Supabase
-// directly, then drop graphql-request from dependencies.
-const GRAPHQL_ENDPOINT = "https://workspaceapi-server-production-963b.up.railway.app/api/graphql";
-export const graphqlClient = new GraphQLClient(GRAPHQL_ENDPOINT, { credentials: "omit" });
 
 export type ProjectRiskLevel = "low" | "medium" | "high";
 

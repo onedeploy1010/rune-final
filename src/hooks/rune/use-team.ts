@@ -1,7 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { gql } from "graphql-request";
 import { supabase } from "@/lib/supabase";
-import { graphqlClient } from "@/lib/queries";
 import { useDemoStore } from "@/lib/demo-store";
 import { getMockPersonalStats, getMockTeam, getMockRewards } from "@/lib/demo-mock-data";
 import type { NodeId } from "@/lib/thirdweb/contracts";
@@ -50,49 +48,6 @@ export interface PersonalStats {
   hasPurchased: boolean;
   ownedNodeId: number | null;
 }
-
-// ── Remaining GraphQL queries (rune_rewards table not yet mirrored to Supabase) ─
-const PERSONAL_STATS_QUERY = gql`
-  query PersonalStats($address: Address!) {
-    personalStats(address: $address) {
-      address
-      chainId
-      directCount
-      totalDownstreamCount
-      directPurchaseCount
-      directTotalInvested
-      totalDownstreamInvested
-      directCommission
-      teamCommission
-      directByTier { nodeId count }
-      teamByTier   { nodeId count }
-      hasPurchased
-      ownedNodeId
-    }
-  }
-`;
-
-const REWARDS_QUERY = gql`
-  query Rewards($address: Address!, $limit: Int, $offset: Int) {
-    rewards(address: $address, limit: $limit, offset: $offset) {
-      downline
-      nodeId
-      purchaseAmount
-      directRate
-      commission
-      paidAt
-      blockNumber
-      txHash
-      chainId
-    }
-  }
-`;
-
-const graphqlQueryOpts = {
-  retry: false as const,
-  staleTime: 60_000,
-  refetchOnWindowFocus: false,
-};
 
 // ── Hooks ───────────────────────────────────────────────────────────────────
 
@@ -166,51 +121,55 @@ export function useUserPurchases(address: string | undefined) {
 }
 
 /**
- * Aggregate stats (direct + transitive team). Still on GraphQL because:
- *   1. The transitive downstream walk is a recursive CTE on the server.
- *   2. The `directCommission` / `teamCommission` fields require the
- *      `rune_rewards` table, which is not yet mirrored to Supabase.
+ * Aggregate stats (direct + transitive team). Migrated to Supabase RPC
+ * `rune_personal_stats(addr)` (see supabase/rune_personal_stats.sql).
  *
- * TODO(api-server final cutover): write a `rune_rewards` table from the
- * indexer (mirror of the GraphQL `rewards` resolver), then add a Postgres
- * RPC function that returns this aggregate, then swap this body to call
- * `supabase.rpc('rune_personal_stats', { addr })`.
+ * The api-server's GraphQL `personalStats` indexer lagged behind Supabase
+ * by hours, so recent purchases didn't show in the team performance number.
+ * The Supabase RPC walks `rune_referrers` recursively and joins
+ * `rune_purchases` directly, returning fresh data.
+ *
+ * Caveat: `directCommission` / `teamCommission` are returned as "0" until
+ * `rune_rewards` is mirrored into Supabase (see TODO on `useRewards`).
  */
 export function usePersonalStats(address: string | undefined) {
   const { isDemoMode, demoNodeId } = useDemoStore.getState();
   return useQuery({
     queryKey: ["rune", "personalStats", isDemoMode ? "demo" : address],
     enabled: isDemoMode || !!address,
-    ...graphqlQueryOpts,
-    queryFn: async () => {
+    retry: false,
+    staleTime: 60_000,
+    refetchOnWindowFocus: false,
+    queryFn: async (): Promise<PersonalStats> => {
       if (isDemoMode && demoNodeId) return getMockPersonalStats(demoNodeId as NodeId);
-      const data = await graphqlClient.request<{ personalStats: PersonalStats }>(
-        PERSONAL_STATS_QUERY,
-        { address },
-      );
-      return data.personalStats;
+      const { data, error } = await supabase.rpc("rune_personal_stats", {
+        addr: address!.toLowerCase(),
+      });
+      if (error) throw error;
+      return data as PersonalStats;
     },
   });
 }
 
 /**
- * Per-payout commission rows. Still on GraphQL because `rune_rewards` is
- * not yet a Supabase table — same TODO as `usePersonalStats`.
+ * Per-payout commission rows. Stubbed empty until `rune_rewards` table is
+ * mirrored from the on-chain CommissionPaid indexer into Supabase. The
+ * rewards UI degrades gracefully (empty list, no error).
+ *
+ * TODO(backend): create `rune_rewards` table + indexer that writes to it,
+ * then replace this body with `supabase.from('rune_rewards').select(...)`.
  */
-export function useRewards(address: string | undefined, opts?: { limit?: number; offset?: number }) {
+export function useRewards(address: string | undefined, _opts?: { limit?: number; offset?: number }) {
   const { isDemoMode, demoNodeId } = useDemoStore.getState();
   return useQuery({
-    queryKey: ["rune", "rewards", isDemoMode ? "demo" : address, opts?.limit, opts?.offset],
+    queryKey: ["rune", "rewards", isDemoMode ? "demo" : address],
     enabled: isDemoMode || !!address,
-    ...graphqlQueryOpts,
-    queryFn: async () => {
+    retry: false,
+    staleTime: 60_000,
+    refetchOnWindowFocus: false,
+    queryFn: async (): Promise<RewardRow[]> => {
       if (isDemoMode && demoNodeId) return getMockRewards(demoNodeId as NodeId);
-      const data = await graphqlClient.request<{ rewards: RewardRow[] }>(REWARDS_QUERY, {
-        address,
-        limit:  opts?.limit  ?? 100,
-        offset: opts?.offset ?? 0,
-      });
-      return data.rewards;
+      return [];
     },
   });
 }
