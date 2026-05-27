@@ -2,16 +2,17 @@ import { useState } from "react";
 import { useActiveAccount } from "thirdweb/react";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
-import { OverviewTab, RewardsTab } from "@/pages/dashboard";
+import { NodeOverviewPanel } from "@app/components/profile/node-overview";
+import { RewardsPanel } from "@app/components/profile/team-detail";
 import { Server, Gift } from "lucide-react";
-import { DashboardSubTabs } from "@app/components/dashboard-sub-tabs";
+import { DashboardSubTabs, type SubTabItem } from "@app/components/dashboard-sub-tabs";
 import { PageEnter, SubTabSwitch } from "@app/components/page-enter";
 
 type Sub = "overview" | "rewards";
 
-const TABS = [
-  { key: "overview" as const, icon: Server, labelKey: "profile.nodeOverview",      fallback: "Overview" },
-  { key: "rewards"  as const, icon: Gift,   labelKey: "profile.nodeRewards.title", fallback: "Rewards" },
+const TABS: SubTabItem<Sub>[] = [
+  { key: "overview", icon: Server, labelKey: "profile.nodeOverview",      fallback: "Overview" },
+  { key: "rewards",  icon: Gift,   labelKey: "profile.nodeRewards.title", fallback: "Rewards" },
 ];
 
 /**
@@ -204,7 +205,7 @@ export default function ProfileNodes() {
 
         {/* Sub-tabs — DashboardSubTabs is already mobile-tested down to 320px */}
         <div className="relative px-3 sm:px-4 lg:px-6 max-w-6xl mx-auto w-full">
-          <DashboardSubTabs tabs={TABS} active={sub} onChange={setSub} testIdPrefix="tab-nodes" />
+          <DashboardSubTabs<Sub> tabs={TABS} active={sub} onChange={setSub} testIdPrefix="tab-nodes" />
         </div>
 
         {/* Content frame — animated gold ring + halo wrap the actual tab
@@ -215,7 +216,7 @@ export default function ProfileNodes() {
           <div className="nodes-gold-ring p-2.5 sm:p-4 lg:p-5">
             <div className="relative z-[2]">
               <SubTabSwitch tabKey={sub}>
-                {sub === "overview" ? <OverviewTab address={address} /> : <RewardsTab address={address} />}
+                {sub === "overview" ? <NodeOverviewPanel address={address} /> : <RewardsPanel address={address} />}
               </SubTabSwitch>
             </div>
           </div>

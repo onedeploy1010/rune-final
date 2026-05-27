@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { useActiveAccount } from "thirdweb/react";
 import { useTranslation } from "react-i18next";
-import { TeamTab, RewardsTab } from "@/pages/dashboard";
+import { TeamPanel, RewardsPanel } from "@app/components/profile/team-detail";
 import { Users, Gift } from "lucide-react";
-import { DashboardSubTabs } from "@app/components/dashboard-sub-tabs";
+import { DashboardSubTabs, type SubTabItem } from "@app/components/dashboard-sub-tabs";
 import { PageEnter, SubTabSwitch } from "@app/components/page-enter";
 
 type Sub = "team" | "rewards";
 
-const TABS = [
-  { key: "team" as const,    icon: Users, labelKey: "profile.referralOverview", fallback: "Overview" },
-  { key: "rewards" as const, icon: Gift,  labelKey: "profile.referralRewards",  fallback: "Rewards" },
+const TABS: SubTabItem<Sub>[] = [
+  { key: "team",    icon: Users, labelKey: "profile.referralOverview", fallback: "Overview" },
+  { key: "rewards", icon: Gift,  labelKey: "profile.referralRewards",  fallback: "Rewards" },
 ];
 
 /**
@@ -36,10 +36,10 @@ export default function ProfileReferral() {
     <PageEnter>
       <div className="container mx-auto px-3 sm:px-4 py-4 sm:py-6 max-w-6xl">
         <div className="mb-4">
-          <DashboardSubTabs tabs={TABS} active={sub} onChange={setSub} testIdPrefix="tab-referral" />
+          <DashboardSubTabs<Sub> tabs={TABS} active={sub} onChange={setSub} testIdPrefix="tab-referral" />
         </div>
         <SubTabSwitch tabKey={sub}>
-          {sub === "team" ? <TeamTab address={address} /> : <RewardsTab address={address} />}
+          {sub === "team" ? <TeamPanel address={address} /> : <RewardsPanel address={address} />}
         </SubTabSwitch>
       </div>
     </PageEnter>

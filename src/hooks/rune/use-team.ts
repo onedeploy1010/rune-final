@@ -152,24 +152,46 @@ export function usePersonalStats(address: string | undefined) {
 }
 
 /**
- * Per-payout commission rows. Stubbed empty until `rune_rewards` table is
- * mirrored from the on-chain CommissionPaid indexer into Supabase. The
- * rewards UI degrades gracefully (empty list, no error).
+ * Per-payout direct-referral commission. Reads the `rune_rewards` VIEW
+ * (see supabase/rune_rewards.sql) which derives each commission row from
+ * `rune_purchases ⋈ rune_referrers` × the fixed per-tier directRate — no
+ * indexer needed since NodePresell emits no CommissionPaid event.
  *
- * TODO(backend): create `rune_rewards` table + indexer that writes to it,
- * then replace this body with `supabase.from('rune_rewards').select(...)`.
+ * `recipient` is the upline (this address); the view exposes it for the
+ * `.eq` filter but it's not part of RewardRow. Degrades gracefully to an
+ * empty list if the view hasn't been created yet.
  */
-export function useRewards(address: string | undefined, _opts?: { limit?: number; offset?: number }) {
+export function useRewards(address: string | undefined, opts?: { limit?: number; offset?: number }) {
   const { isDemoMode, demoNodeId } = useDemoStore.getState();
   return useQuery({
-    queryKey: ["rune", "rewards", isDemoMode ? "demo" : address],
+    queryKey: ["rune", "rewards", isDemoMode ? "demo" : address, opts?.limit, opts?.offset],
     enabled: isDemoMode || !!address,
     retry: false,
     staleTime: 60_000,
     refetchOnWindowFocus: false,
     queryFn: async (): Promise<RewardRow[]> => {
       if (isDemoMode && demoNodeId) return getMockRewards(demoNodeId as NodeId);
-      return [];
+      const limit  = opts?.limit  ?? 200;
+      const offset = opts?.offset ?? 0;
+      const { data, error } = await supabase
+        .from("rune_rewards")
+        .select("downline, node_id, purchase_amount, direct_rate, commission, paid_at, block_number, tx_hash, chain_id")
+        .eq("recipient", address!.toLowerCase())
+        .order("paid_at", { ascending: false })
+        .range(offset, offset + limit - 1);
+      // View not deployed yet (or transient error) → empty list, no UI error.
+      if (error) return [];
+      return (data ?? []).map((r) => ({
+        downline: r.downline as string,
+        nodeId: r.node_id as number,
+        purchaseAmount: String(r.purchase_amount),
+        directRate: r.direct_rate as number,
+        commission: String(r.commission),
+        paidAt: r.paid_at as string,
+        blockNumber: r.block_number as number,
+        txHash: r.tx_hash as string,
+        chainId: r.chain_id as number,
+      }));
     },
   });
 }

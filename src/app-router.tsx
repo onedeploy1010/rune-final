@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { Route, Switch, useLocation } from "wouter";
 
 import { AppLayout } from "@/components/layout";
+import { RuneOnboarding } from "@/components/rune/rune-onboarding";
 
 import Home          from "@/pages/home";
 import Projects      from "@/pages/projects";
@@ -32,16 +33,23 @@ function Loading() {
 
 export default function AppRouter() {
   const [location] = useLocation();
-  if (location === "/app" || location.startsWith("/app/")) {
-    return (
-      <Suspense fallback={<Loading />}>
-        <AppContainer />
-      </Suspense>
-    );
-  }
+  const inApp = location === "/app" || location.startsWith("/app/");
   return (
-    <AppLayout>
-      <Switch>
+    <>
+      {/* Global onboarding glue — bind-referrer gate + buy-node modal listener.
+          Must live at the top-level router (not inside dashboard-shell's
+          base="/app" router) so RuneOnboarding's absolute-path navigation and
+          the emitOpenPurchase signal work across both marketing and /app.
+          Restores the purchase flow after the old src/app/App.tsx mount was
+          removed. */}
+      <RuneOnboarding />
+      {inApp ? (
+        <Suspense fallback={<Loading />}>
+          <AppContainer />
+        </Suspense>
+      ) : (
+        <AppLayout>
+          <Switch>
         <Route path="/" component={Home} />
         <Route path="/projects" component={Projects} />
         <Route path="/projects/rune"            component={Rune} />
@@ -55,8 +63,10 @@ export default function AppRouter() {
         <Route path="/recruit"    component={Recruit} />
         <Route path="/dashboard"  component={PublicDashboard} />
         <Route path="/tutorial"   component={Tutorial} />
-        <Route component={NotFound} />
-      </Switch>
-    </AppLayout>
+            <Route component={NotFound} />
+          </Switch>
+        </AppLayout>
+      )}
+    </>
   );
 }
