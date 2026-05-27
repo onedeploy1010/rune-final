@@ -1101,9 +1101,18 @@
 }
 
 .gold-ring {
+  /* Border-only treatment: transparent interior so the rotating gold lives
+     on the FRAME, not as a filled background box. Inner content (cards /
+     page bg) shows through unchanged. */
   position: relative;
   border-radius: 1rem;
   isolation: isolate;
+  background: transparent;
+}
+/* Opt-in static card surface for hero gold-rings that need a filled face
+   behind the rotating border (the BACKGROUND stays static — only the frame
+   animates). Defined after `.gold-ring` so it wins the `background` cascade. */
+.gold-ring-surface {
   background:
     radial-gradient(circle at top left, rgba(255,255,255,0.05), transparent 55%),
     linear-gradient(180deg, hsl(var(--card)), hsl(28 16% 10%));

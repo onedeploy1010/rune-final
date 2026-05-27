@@ -217,7 +217,7 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-4 pb-24 lg:pb-8 lg:px-6 lg:pt-4" data-testid="page-dashboard">
-      <div className="gold-ring rounded-b-2xl lg:rounded-2xl px-3 pb-3 pt-1.5 lg:pt-3">
+      <div className="gold-ring gold-ring-surface rounded-b-2xl lg:rounded-2xl px-3 pb-3 pt-1.5 lg:pt-3">
         <div className="relative z-[2]">
         <div className="flex items-start justify-between gap-2">
           <PriceHeader coin={selectedCoin} isLoading={pricesLoading} />
