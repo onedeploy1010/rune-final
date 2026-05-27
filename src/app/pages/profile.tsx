@@ -272,17 +272,15 @@ export default function ProfilePage() {
 
         {/* ── 总收益 = 质押收益 + 推广收益（pre-launch 占位，质押开放后写入实数）── */}
         <div
-          className="surface-3d relative overflow-hidden rounded-3xl border-2 border-amber-500/45 p-4"
+          className="gold-ring relative overflow-hidden rounded-3xl p-4"
           style={{
             background: "linear-gradient(135deg, rgba(60,40,8,0.85), rgba(28,20,8,0.95) 60%, rgba(14,10,4,0.98))",
-            boxShadow:
-              "inset 0 1px 0 rgba(251,191,36,0.30), inset 0 -1px 0 rgba(0,0,0,0.30), 0 12px 36px -12px rgba(251,191,36,0.30), 0 28px 60px -20px rgba(0,0,0,0.55)",
           }}
         >
           <div className="pointer-events-none absolute -top-24 -right-12 h-64 w-64 rounded-full bg-amber-400/[0.30] blur-[90px]" />
           <div className="pointer-events-none absolute -bottom-16 -left-12 h-44 w-44 rounded-full bg-amber-600/[0.18] blur-[70px]" />
           <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-400/80 to-transparent" />
-          <div className="relative">
+          <div className="relative z-[2]">
             <div className="flex items-center justify-between mb-3">
               <div>
                 <div className="flex items-center gap-1.5 mb-1.5 flex-wrap">

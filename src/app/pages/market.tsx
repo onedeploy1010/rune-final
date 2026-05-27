@@ -461,10 +461,9 @@ export default function MarketPage() {
           </div>
         )}
         <div
-          className="rounded-xl overflow-hidden backdrop-blur-sm"
+          className="premium-card rounded-xl overflow-hidden backdrop-blur-sm"
           style={{
             background: "linear-gradient(180deg, rgba(15,25,20,0.6) 0%, rgba(10,18,14,0.8) 100%)",
-            border: "1px solid rgba(255,255,255,0.06)",
           }}
         >
           <div className="p-3">
@@ -552,7 +551,7 @@ export default function MarketPage() {
             fearGreedIndex={exchangeDepthData?.fearGreedIndex}
             fearGreedLabel={exchangeDepthData?.fearGreedLabel}
           />
-          <div className="glass-card rounded-2xl p-4 relative overflow-hidden" style={{ border: '1px solid rgba(255,255,255,0.06)' }}>
+          <div className="premium-card rounded-2xl p-4 relative overflow-hidden">
             <ExchangeDepth symbol={selectedCoinTab} />
           </div>
         </div>

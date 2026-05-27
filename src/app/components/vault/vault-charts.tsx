@@ -5,7 +5,7 @@ import {
   ReferenceLine,
 } from "recharts";
 import { motion } from "framer-motion";
-import { TrendingUp, Layers, BarChart2, Target, Zap, Rocket, Flame } from "lucide-react";
+import { TrendingUp, BarChart2, Target, Zap, Rocket, Flame } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useTranslation } from "react-i18next";
 import { usePoolStatsRune } from "@app/lib/data-rune";
@@ -17,13 +17,6 @@ const TEAL   = "hsl(173 70% 55%)";
 const TEAL_LITE = "hsl(178 90% 68%)";
 const CYAN   = "hsl(189 95% 65%)";
 const PINK   = "hsl(330 90% 70%)";
-
-import { fmtUsdtCompact } from "@/lib/format";
-
-/** Locale-aware compact USDT — Chinese uses 百/千/万/十万/百万/千万/亿, other locales K/M. */
-function fmtUsdt(v: number) {
-  return fmtUsdtCompact(v);
-}
 
 function useCountUp(target: number, duration = 1200) {
   const [val, setVal] = useState(0);
@@ -52,7 +45,7 @@ const CustomTooltipAlloc = ({ active, payload }: any) => {
   return (
     <div className="rounded-lg px-3 py-2 text-xs bg-popover border border-border/50 shadow-lg">
       <div className="font-bold" style={{ color: d.color }}>{d.name}</div>
-      <div className="text-muted-foreground mt-0.5">${d.value.toLocaleString()} USDT · {d.pct}%</div>
+      <div className="text-muted-foreground mt-0.5">{d.pct}%</div>
     </div>
   );
 };
@@ -209,7 +202,7 @@ export function VaultRecruitment() {
               </span>
             </div>
             <div className="text-[11px] font-bold tabular-nums text-amber-200 drop-shadow-[0_0_8px_rgba(251,191,36,0.5)]">
-              {fmtUsdt(raisedUsdt)} / {fmtUsdt(TOTAL_FUNDRAISE_TARGET_USDT)}
+              {nodeProgress.toFixed(1)}%
             </div>
           </div>
 
@@ -278,10 +271,7 @@ export function VaultRecruitment() {
               />
             </div>
 
-            <div className="mt-2 flex items-center justify-between text-[11px] gap-2 flex-wrap">
-              <span className="text-amber-200/85 tabular-nums" data-testid="round-amount">
-                {fmtUsdt(inRoundUsdt)} <span className="text-amber-300/55">/ $2.0M</span>
-              </span>
+            <div className="mt-2 flex items-center justify-end text-[11px] gap-2 flex-wrap">
               <span className="text-amber-100 font-bold tabular-nums drop-shadow-[0_0_6px_rgba(251,191,36,0.5)]" data-testid="round-percent">
                 {roundProgress.toFixed(1)}%
               </span>
@@ -342,7 +332,7 @@ export function VaultRecruitment() {
                 {t("vault.charts.lpInjectTarget", "LP 注入目标")} · 2.8M USDT
               </span>
               <span className="text-cyan-300 tabular-nums font-bold">
-                {fmtUsdt(lpDepositedUsdt)} ({lpProgress.toFixed(1)}%)
+                {lpProgress.toFixed(1)}%
               </span>
             </div>
           </div>
@@ -370,7 +360,6 @@ export function VaultCharts() {
   const motherUsdt  = data?.runeLp ?? 0;
   const reserveUsdt = data?.reserve ?? 0;
   const tradingUsdt = data?.managedPool ?? 0;
-  const totalUsdt   = data?.totalDepositUsdt ?? 0;
 
   const allocData = [
     { name: t("vault.charts.runeLp"),      value: motherUsdt,  color: AMBER, pct: "35" },
@@ -392,11 +381,9 @@ export function VaultCharts() {
         </span>
       </div>
 
-      {/* KPI row */}
-      <div className="grid grid-cols-3 gap-2">
+      {/* KPI row — deposit/pool totals hidden; only the yield estimate stays */}
+      <div className="grid grid-cols-1 gap-2">
         {[
-          { icon: Layers,     color: AMBER,  label: t("vault.charts.totalDeposits"), val: totalUsdt,   prefix: "$", suffix: "", dec: 0, ringClass: "ring-primary/25 bg-primary/[0.06]" },
-          { icon: Target,     color: BLUE,   label: t("vault.charts.managedPool"),   val: tradingUsdt, prefix: "$", suffix: "", dec: 0, ringClass: "ring-blue-500/25 bg-blue-500/[0.06]" },
           { icon: TrendingUp, color: TEAL,   label: t("vault.charts.annualEst"),     val: 8,           prefix: "",  suffix: "%", dec: 0, ringClass: "ring-teal-500/25 bg-teal-500/[0.06]" },
         ].map(({ icon: Icon, color, label, val, prefix, suffix, dec, ringClass }) => (
           <motion.div
@@ -416,7 +403,7 @@ export function VaultCharts() {
       </div>
 
       {/* Allocation donut + legend */}
-      <Card className="surface-3d border-border/55 bg-card/60">
+      <Card className="premium-card border-border">
         <CardContent className="p-3">
           <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-3">
             {t("vault.charts.allocation")}

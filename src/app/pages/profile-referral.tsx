@@ -5,6 +5,7 @@ import { TeamPanel, RewardsPanel } from "@app/components/profile/team-detail";
 import { Users, Gift } from "lucide-react";
 import { DashboardSubTabs, type SubTabItem } from "@app/components/dashboard-sub-tabs";
 import { PageEnter, SubTabSwitch } from "@app/components/page-enter";
+import { GoldCard } from "@app/components/premium-card";
 
 type Sub = "team" | "rewards";
 
@@ -38,9 +39,13 @@ export default function ProfileReferral() {
         <div className="mb-4">
           <DashboardSubTabs<Sub> tabs={TABS} active={sub} onChange={setSub} testIdPrefix="tab-referral" />
         </div>
-        <SubTabSwitch tabKey={sub}>
-          {sub === "team" ? <TeamPanel address={address} /> : <RewardsPanel address={address} />}
-        </SubTabSwitch>
+        <GoldCard className="p-2.5 sm:p-4 lg:p-5">
+          <div className="relative z-[2]">
+            <SubTabSwitch tabKey={sub}>
+              {sub === "team" ? <TeamPanel address={address} /> : <RewardsPanel address={address} />}
+            </SubTabSwitch>
+          </div>
+        </GoldCard>
       </div>
     </PageEnter>
   );

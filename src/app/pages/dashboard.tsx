@@ -217,10 +217,8 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-4 pb-24 lg:pb-8 lg:px-6 lg:pt-4" data-testid="page-dashboard">
-      <div
-        className="rounded-b-2xl lg:rounded-2xl px-3 pb-3 pt-1.5 lg:pt-3"
-        style={{ background: "linear-gradient(145deg, rgba(22,16,8,0.95), rgba(14,10,4,0.98))" }}
-      >
+      <div className="gold-ring rounded-b-2xl lg:rounded-2xl px-3 pb-3 pt-1.5 lg:pt-3">
+        <div className="relative z-[2]">
         <div className="flex items-start justify-between gap-2">
           <PriceHeader coin={selectedCoin} isLoading={pricesLoading} />
           <button
@@ -245,6 +243,7 @@ export default function Dashboard() {
           onTimeframeChange={setSelectedTimeframe}
           activeModel={chartModelName || undefined}
         />
+        </div>
       </div>
 
       <div className="px-4 lg:px-0">
@@ -264,7 +263,7 @@ export default function Dashboard() {
       {/* Desktop: two-column grid for OI + trending */}
       <div className="lg:grid lg:grid-cols-2 lg:gap-4 space-y-4 lg:space-y-0">
         <div className="px-4 lg:px-0">
-          <div className="glass-card rounded-2xl p-4 relative overflow-hidden" style={{ border: '1px solid rgba(255,255,255,0.06)' }}>
+          <div className="premium-card rounded-2xl p-4 relative overflow-hidden">
             <div className="flex items-center gap-2 mb-3">
               <Activity className="h-4 w-4 text-primary" />
               <h3 className="text-sm font-bold">{t("dashboard.futuresOI")}</h3>
@@ -304,7 +303,7 @@ export default function Dashboard() {
         </div>
 
         <div className="px-4 lg:px-0">
-          <div className="glass-card rounded-2xl p-4 relative overflow-hidden" style={{ border: '1px solid rgba(255,255,255,0.06)' }}>
+          <div className="premium-card rounded-2xl p-4 relative overflow-hidden">
             <TrendingFeed prices={prices} isLoading={pricesLoading} />
           </div>
         </div>
@@ -312,7 +311,7 @@ export default function Dashboard() {
 
       {/* Cross-Exchange Prices */}
       <div className="px-4 lg:px-0">
-        <div className="glass-card rounded-2xl p-4 relative overflow-hidden" style={{ border: '1px solid rgba(255,255,255,0.06)' }}>
+        <div className="premium-card rounded-2xl p-4 relative overflow-hidden">
           <div className="flex items-center gap-2 mb-3">
             <Globe className="h-4 w-4 text-primary" />
             <h3 className="text-sm font-bold">{t("dashboard.crossExchange")}</h3>

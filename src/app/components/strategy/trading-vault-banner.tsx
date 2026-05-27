@@ -7,7 +7,6 @@ import {
 import { useTranslation } from "react-i18next";
 import { VaultCalendar } from "./vault-calendar";
 import { getLastMonthMonthlyReturn } from "./strategy-header";
-import { usePoolStatsRune } from "@app/lib/data-rune";
 import { useDailyPnl } from "@app/lib/ai-bot-feed";
 
 /* ── Stable rate display.
@@ -77,18 +76,6 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 export function TradingVaultBanner() {
   const { t } = useTranslation();
 
-  // Pool data sources from RUNE on-chain `rune_purchases` (via Supabase),
-  // not the dead TAICLAW api-server. balance = 45% slice of total deposits.
-  const { data, isLoading } = usePoolStatsRune();
-
-  const balance    = data?.managedPool ?? 0;
-  const totalDeposits = data?.totalDepositUsdt ?? 0;
-
-  const fmtUsd = (v: number) => {
-    if (v >= 1_000_000) return `$${(v / 1_000_000).toFixed(2)}M`;
-    if (v >= 1_000)     return `$${(v / 1_000).toFixed(2)}K`;
-    return `$${v.toFixed(2)}`;
-  };
 
   // Last completed month's actual P&L total — real bot-closed PnL when
   // available (from ai_paper_trades), seeded mock as backstop. Always
@@ -104,14 +91,6 @@ export function TradingVaultBanner() {
       label: t("strategy.banner.monthlyReturn"),
       value: `${lastMonthPct >= 0 ? "+" : ""}${lastMonthPct.toFixed(1)}%`,
       sub: t("strategy.banner.monthlyReturnSub"),
-    },
-    {
-      icon: Zap,
-      colorClass: "text-primary",
-      bgClass: "bg-primary/[0.06] ring-primary/25",
-      label: t("strategy.banner.totalAum"),
-      value: isLoading ? "—" : <CountUp target={balance} prefix="$" decimals={2} />,
-      sub: t("strategy.banner.totalAumSub"),
     },
     {
       icon: Activity,
@@ -338,11 +317,7 @@ export function TradingVaultBanner() {
         <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground/70">
           <RefreshCw className="h-3 w-3 shrink-0" />
           <span className="truncate">
-            {t("strategy.banner.footerFormula", {
-              total: fmtUsd(totalDeposits),
-              vault: fmtUsd(balance),
-              defaultValue: `Total deposits ${fmtUsd(totalDeposits)} × 45% = Trading vault ${fmtUsd(balance)} · Activates after node recruitment ends`,
-            })}
+            {t("strategy.banner.footerFormulaNoAmount", "总入金 × 45% = 交易金库 · 节点招募结束后激活")}
           </span>
         </div>
       </div>

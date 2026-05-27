@@ -1,18 +1,12 @@
 import { useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent } from "@/components/ui/card";
-import { Layers, Shield, TrendingUp, RefreshCw, Wallet } from "lucide-react";
+import { Layers, Shield, TrendingUp, RefreshCw } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { cn } from "@app/lib/utils";
 import { usePoolStatsRune } from "@app/lib/data-rune";
-import { fmtUsdtCompact } from "@/lib/format";
 
 type PoolView = "rune" | "reserve";
-
-/** Locale-aware compact USDT — Chinese uses 百/千/万/十万/百万/千万/亿, other locales K/M. */
-function fmtUsdt(val: string | number) {
-  return fmtUsdtCompact(Number(val), { maxFrac: 2 });
-}
 
 /**
  * Vault page LP card. Shows aggregate node-deposit totals split into the
@@ -22,12 +16,9 @@ function fmtUsdt(val: string | number) {
 export function VaultLpPool() {
   const { t } = useTranslation();
   const [view, setView] = useState<PoolView>("rune");
-  const { data, isLoading } = usePoolStatsRune();
+  const { isLoading } = usePoolStatsRune();
 
   const isLive = false; // Pre-launch — RUNE token not yet listed.
-  const totalUsdt = data?.totalDepositUsdt ?? 0;
-  const totalMembers = data?.totalMembers ?? 0;
-  const totalNodes = data?.totalNodes ?? 0;
 
   const POOL_TABS = [
     { key: "rune" as const,    icon: TrendingUp, label: "RUNE LP",                    pct: "35%" },
@@ -123,26 +114,12 @@ export function VaultLpPool() {
             {/* RUNE LP balance — hero card */}
             <div className="relative rounded-2xl px-5 py-4 bg-gradient-to-br from-primary/[0.12] via-primary/[0.06] to-transparent ring-1 ring-primary/30 shadow-[0_4px_20px_-6px_hsl(38_95%_55%/0.25),inset_0_1px_0_hsl(38_95%_55%/0.15)] overflow-hidden">
               <div className="pointer-events-none absolute -top-12 -right-8 h-32 w-32 rounded-full bg-primary/20 blur-2xl" />
-              <div className="relative flex items-end justify-between gap-3">
-                <div className="min-w-0">
-                  <div className="text-[10px] text-muted-foreground/90 uppercase tracking-[0.15em] font-semibold mb-1">
-                    {t("vault.lpPool.runePoolTitle")}
-                  </div>
-                  <div className="text-[28px] leading-none font-bold tabular-nums text-primary drop-shadow-[0_0_18px_hsl(38_95%_55%/0.4)]">
-                    {fmtUsdt(totalUsdt * 0.35)}
-                  </div>
-                  <div className="text-[10px] text-muted-foreground/70 mt-1.5 flex items-center gap-1">
-                    <Wallet className="h-3 w-3" />
-                    {t("vault.lpPool.fromTotalDeposits")}{" "}
-                    <span className="text-foreground/80 font-semibold tabular-nums">{fmtUsdt(totalUsdt)}</span>
-                  </div>
+              <div className="relative">
+                <div className="text-[10px] text-muted-foreground/90 uppercase tracking-[0.15em] font-semibold mb-1.5">
+                  {t("vault.lpPool.runePoolTitle")}
                 </div>
-                <div className="text-right shrink-0 pl-2 border-l border-primary/15">
-                  <div className="text-[10px] text-muted-foreground/80 uppercase tracking-wider font-semibold">{t("vault.lpPool.nodes")}</div>
-                  <div className="text-xl font-bold text-primary tabular-nums leading-tight">{totalNodes}</div>
-                  <div className="text-[10px] text-muted-foreground/70 mt-0.5">
-                    {totalMembers} {t("vault.lpPool.members")}
-                  </div>
+                <div className="text-[15px] font-bold text-primary/90">
+                  {t("vault.lpPool.preLaunch")}
                 </div>
               </div>
             </div>
@@ -168,10 +145,7 @@ export function VaultLpPool() {
                 <div className="text-[10px] text-muted-foreground/90 uppercase tracking-[0.15em] font-semibold mb-1">
                   {t("vault.lpPool.reserveBalance")}
                 </div>
-                <div className="text-[24px] leading-none font-bold tabular-nums text-teal-300 drop-shadow-[0_0_14px_hsl(173_58%_50%/0.35)]">
-                  {fmtUsdt(totalUsdt * 0.20)}
-                </div>
-                <div className="text-[10px] text-muted-foreground/70 mt-1.5">
+                <div className="text-[13px] font-semibold mt-1 leading-tight text-teal-300">
                   {t("vault.lpPool.reservePctOfDeposits")}
                 </div>
               </div>

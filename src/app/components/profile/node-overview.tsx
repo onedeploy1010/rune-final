@@ -107,7 +107,7 @@ export function NodeOverviewPanel({ address }: { address: string }) {
       )}
 
       {/* Bound-to */}
-      <Card className="border-border bg-card/50">
+      <Card className="premium-card border-border">
         <CardContent className="p-3 flex items-center justify-between gap-3">
           <span className="text-[11px] uppercase tracking-wider text-muted-foreground">{t("profile.node.boundTo", "上级")}</span>
           <span className="text-xs">
@@ -159,7 +159,7 @@ export function NodeOverviewPanel({ address }: { address: string }) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: i * 0.05, ease: EASE }}
               whileHover={{ y: -3 }}
-              className="group relative overflow-hidden rounded-xl border border-border/60 bg-gradient-to-br from-card/75 to-card/45 p-3 transition-colors hover:border-amber-500/35"
+              className="premium-card group relative overflow-hidden rounded-xl p-3"
             >
               <div aria-hidden className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(circle_at_80%_-20%,rgba(251,191,36,0.12),transparent_55%)]" />
               <div className="relative flex items-center gap-2 mb-1">

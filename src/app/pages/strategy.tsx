@@ -149,7 +149,7 @@ function StrategyListTab({ walletAddr, onFollowStrategy }: { walletAddr: string;
           { label: t("aiLab.totalPnlLabel"), value: `${globalPnl >= 0 ? "+" : ""}${globalPnl.toFixed(1)}`, color: globalPnl >= 0 ? "#4ade80" : "#f87171" },
           { label: t("aiLab.signalsLabel"), value: (allSignals.length || 84).toString(), color: "#60a5fa" },
         ].map(s => (
-          <div key={s.label} className="rounded-lg p-2 text-center min-w-0" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
+          <div key={s.label} className="premium-card rounded-lg p-2 text-center min-w-0">
             <div className="text-[13px] font-black tabular-nums truncate" style={{ color: s.color }}>{s.value}</div>
             <div className="text-[8px] text-muted-foreground mt-0.5 uppercase tracking-wide truncate">{s.label}</div>
           </div>

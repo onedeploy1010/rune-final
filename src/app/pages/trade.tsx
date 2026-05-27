@@ -182,8 +182,8 @@ function PolyCard({
       className="rounded-xl overflow-hidden transition-all duration-200 hover:scale-[1.01] active:scale-[0.99]"
       style={{
         background: "linear-gradient(145deg, rgba(28,20,12,0.95), rgba(18,14,6,0.98))",
-        border: "1px solid rgba(212,168,50,0.12)",
-        boxShadow: "0 2px 12px rgba(0,0,0,0.4)",
+        border: "1px solid rgba(212,168,50,0.40)",
+        boxShadow: "0 8px 24px -10px rgba(0,0,0,0.55), 0 0 0 1px rgba(212,168,50,0.06), inset 0 1px 0 rgba(255,255,255,0.06)",
       }}
     >
       {market.image && (
@@ -281,8 +281,8 @@ function AiCard({
       className="rounded-xl overflow-hidden transition-all duration-200 hover:scale-[1.01] active:scale-[0.99]"
       style={{
         background: "linear-gradient(145deg, rgba(28,20,12,0.95), rgba(18,14,6,0.98))",
-        border: `1px solid ${isBullish ? "rgba(34,197,94,0.18)" : isBearish ? "rgba(239,68,68,0.18)" : "rgba(234,179,8,0.18)"}`,
-        boxShadow: "0 2px 12px rgba(0,0,0,0.4)",
+        border: `1px solid ${isBullish ? "rgba(34,197,94,0.45)" : isBearish ? "rgba(239,68,68,0.45)" : "rgba(234,179,8,0.45)"}`,
+        boxShadow: "0 8px 24px -10px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.06)",
       }}
     >
       <div className="p-3">
@@ -409,8 +409,8 @@ function NewsCard({
       className="rounded-xl overflow-hidden transition-all duration-200 hover:scale-[1.01] active:scale-[0.99]"
       style={{
         background: "linear-gradient(145deg, rgba(28,20,12,0.95), rgba(18,14,6,0.98))",
-        border: "1px solid rgba(212,168,50,0.1)",
-        boxShadow: "0 2px 12px rgba(0,0,0,0.4)",
+        border: "1px solid rgba(212,168,50,0.38)",
+        boxShadow: "0 8px 24px -10px rgba(0,0,0,0.55), 0 0 0 1px rgba(212,168,50,0.06), inset 0 1px 0 rgba(255,255,255,0.06)",
       }}
     >
       <div className="p-3">

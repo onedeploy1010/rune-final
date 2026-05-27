@@ -7,6 +7,7 @@ import { RewardsPanel } from "@app/components/profile/team-detail";
 import { Server, Gift } from "lucide-react";
 import { DashboardSubTabs, type SubTabItem } from "@app/components/dashboard-sub-tabs";
 import { PageEnter, SubTabSwitch } from "@app/components/page-enter";
+import { GoldCard } from "@app/components/premium-card";
 
 type Sub = "overview" | "rewards";
 
@@ -60,104 +61,12 @@ export default function ProfileNodes() {
           transition={{ duration: 9, repeat: Infinity, ease: "linear" }}
         />
 
-        {/* Page-scoped CSS: defines the rotating gold ring + outer halo and
-            the header pulse-line. `@property --nodes-gold-angle` is what
-            makes the conic-gradient animate; without it the ring renders
-            as a static gold edge (still premium, just not revolving). */}
+        {/* Page-scoped CSS: only the header pulse-line keyframe now lives
+            here. The rotating gold ring + halo was extracted into the shared
+            `.gold-ring` class (src/app/index.css) so every page can reuse it;
+            this page now consumes it via the <GoldCard> wrapper below. */}
         <style>{`
-          @property --nodes-gold-angle {
-            syntax: '<angle>';
-            inherits: false;
-            initial-value: 0deg;
-          }
-          @keyframes nodesGoldRotate { to { --nodes-gold-angle: 360deg; } }
           @keyframes nodesPulseLine { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
-
-          .nodes-gold-ring {
-            position: relative;
-            border-radius: 1rem;
-            isolation: isolate;
-            background:
-              radial-gradient(circle at top left, rgba(255,255,255,0.04), transparent 55%),
-              linear-gradient(180deg, rgba(20,14,6,0.92), rgba(10,8,4,0.96));
-            box-shadow:
-              0 18px 44px -24px rgba(251,191,36,0.28),
-              inset 0 1px 0 rgba(255,255,255,0.04);
-          }
-          @media (min-width: 640px) {
-            .nodes-gold-ring {
-              border-radius: 1.25rem;
-              box-shadow:
-                0 24px 60px -28px rgba(251,191,36,0.30),
-                inset 0 1px 0 rgba(255,255,255,0.04);
-            }
-          }
-          /* The thin gold border itself — a conic-gradient sliver that
-             revolves once every 5.5s. Mask-composite carves the centre out
-             so only the 1.5px frame is visible. */
-          .nodes-gold-ring::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            padding: 1.5px;
-            background: conic-gradient(
-              from var(--nodes-gold-angle, 0deg),
-              rgba(251,191,36,0.00)  0%,
-              rgba(251,191,36,0.18) 22%,
-              rgba(253,224,71,0.85) 47%,
-              rgba(255,255,255,0.95) 50%,
-              rgba(253,224,71,0.85) 53%,
-              rgba(251,191,36,0.18) 78%,
-              rgba(251,191,36,0.00) 100%
-            );
-            -webkit-mask:
-              linear-gradient(#000 0 0) content-box,
-              linear-gradient(#000 0 0);
-            -webkit-mask-composite: xor;
-                    mask-composite: exclude;
-            animation: nodesGoldRotate 5.5s linear infinite;
-            pointer-events: none;
-            z-index: 1;
-          }
-          /* Outer halo — the same revolving sliver, blurred + offset, so the
-             gold light visibly "spills" past the frame as it travels. Halo
-             tuned tighter on mobile (less blur, less inset) so it never
-             clips the viewport and stays cheap on weaker GPUs. */
-          .nodes-gold-ring::after {
-            content: '';
-            position: absolute;
-            inset: -6px;
-            border-radius: 1.25rem;
-            background: conic-gradient(
-              from var(--nodes-gold-angle, 0deg),
-              transparent 0deg 80deg,
-              rgba(251,191,36,0.30) 110deg,
-              rgba(253,224,71,0.62) 125deg,
-              rgba(255,255,255,0.55) 130deg,
-              rgba(253,224,71,0.62) 135deg,
-              rgba(251,191,36,0.30) 150deg,
-              transparent 180deg 360deg
-            );
-            filter: blur(10px);
-            opacity: 0.45;
-            animation: nodesGoldRotate 5.5s linear infinite;
-            pointer-events: none;
-            z-index: 0;
-          }
-          @media (min-width: 640px) {
-            .nodes-gold-ring::after {
-              inset: -10px;
-              border-radius: 1.5rem;
-              filter: blur(14px);
-              opacity: 0.55;
-            }
-          }
-
-          @media (prefers-reduced-motion: reduce) {
-            .nodes-gold-ring::before,
-            .nodes-gold-ring::after { animation: none; }
-          }
         `}</style>
 
         {/* Header — premium reactor strip, matched to Vault's layout. Padding
@@ -213,13 +122,13 @@ export default function ProfileNodes() {
             narrow screens; `p-2.5` on mobile keeps the halo glow visible
             without crowding the cards inside. */}
         <div className="relative px-3 sm:px-4 lg:px-6 pt-3 sm:pt-4 max-w-6xl mx-auto w-full">
-          <div className="nodes-gold-ring p-2.5 sm:p-4 lg:p-5">
+          <GoldCard className="p-2.5 sm:p-4 lg:p-5">
             <div className="relative z-[2]">
               <SubTabSwitch tabKey={sub}>
                 {sub === "overview" ? <NodeOverviewPanel address={address} /> : <RewardsPanel address={address} />}
               </SubTabSwitch>
             </div>
-          </div>
+          </GoldCard>
         </div>
       </div>
     </PageEnter>

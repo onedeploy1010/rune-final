@@ -107,10 +107,10 @@ function KpiTile({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay, ease: EASE }}
       whileHover={{ y: -3 }}
-      className={`group relative overflow-hidden rounded-xl border p-3 sm:p-4 transition-colors duration-300 ${
+      className={`group relative overflow-hidden rounded-xl p-3 sm:p-4 transition-colors duration-300 ${
         highlight
-          ? "border-amber-500/55 bg-gradient-to-br from-amber-900/40 via-card/70 to-card/80 shadow-[0_0_30px_-6px_rgba(251,191,36,0.35)]"
-          : "border-border/60 bg-gradient-to-br from-card/75 to-card/45 hover:border-amber-500/30"
+          ? "border border-amber-500/55 bg-gradient-to-br from-amber-900/40 via-card/70 to-card/80 shadow-[0_0_30px_-6px_rgba(251,191,36,0.45)]"
+          : "premium-card"
       }`}
     >
       <div aria-hidden className={`pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${
@@ -171,7 +171,7 @@ function TierComposition({ stats }: { stats: PersonalStats }) {
   const total = rows.reduce((s, r) => s + r.count, 0);
 
   return (
-    <Card className="border-border bg-card/50">
+    <Card className="premium-card border-border">
       <CardContent className="p-3 sm:p-4">
         <div className="flex items-center justify-between mb-3">
           <SectionTitle icon={Coins} extra={<span className="text-[11px] font-mono text-muted-foreground ml-1">{total}</span>}>
@@ -252,7 +252,7 @@ export function TeamPanel({ address }: { address: string }) {
       )}
 
       {/* Drill-down referral tree */}
-      <Card className="border-border bg-card/50">
+      <Card className="premium-card border-border">
         <CardContent className="p-3 sm:p-4 space-y-3">
           <SectionTitle icon={Users}>{t("profile.team.tree", "推荐网络")}</SectionTitle>
 
@@ -372,7 +372,7 @@ export function RewardsPanel({ address }: { address: string }) {
           value={stats ? `$${fmtUsdt(stats.directCommission, 2)}` : "…"} sub="USDT" highlight />
       </div>
 
-      <Card className="border-border bg-card/50">
+      <Card className="premium-card border-border">
         <CardContent className="p-3 sm:p-4 space-y-3">
           <SectionTitle icon={Gift}>{t("profile.team.rewardList", "佣金明细")}</SectionTitle>
 

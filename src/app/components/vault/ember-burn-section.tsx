@@ -187,13 +187,13 @@ export function EmberBurnSection() {
       {/* Rate Tiers */}
       <button onClick={() => setShowTiers(v => !v)}
         className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs text-muted-foreground hover:text-foreground transition-colors"
-        style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}>
+        style={{ background: "rgba(255,255,255,0.02)", border: "1px solid hsl(var(--border))" }}>
         <span>{t("vault.burn.tiersTitle", "Daily Rate Tiers (by RUNE amount burned)")}</span>
         {showTiers ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
       </button>
 
       {showTiers && (
-        <div className="rounded-lg overflow-hidden" style={{ border: "1px solid rgba(255,255,255,0.06)" }}>
+        <div className="rounded-lg overflow-hidden" style={{ border: "1px solid hsl(var(--border))" }}>
           <table className="w-full text-[10px]">
             <thead><tr style={{ background: "rgba(255,255,255,0.04)" }}>
               <th className="text-left px-3 py-2 text-muted-foreground font-medium">{t("vault.burn.tierAmount", "RUNE Burned")}</th>
