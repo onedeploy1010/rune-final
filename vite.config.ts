@@ -37,6 +37,19 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        // Split the heaviest vendors out of the single 4MB+ entry chunk so
+        // the browser can cache them independently and parse less up-front.
+        manualChunks(id) {
+          if (!id.includes("node_modules")) return;
+          if (id.includes("thirdweb") || id.includes("@thirdweb")) return "vendor-thirdweb";
+          if (id.includes("recharts") || id.includes("/d3-") || id.includes("victory-vendor")) return "vendor-charts";
+          if (id.includes("framer-motion")) return "vendor-motion";
+          if (id.includes("@supabase")) return "vendor-supabase";
+        },
+      },
+    },
   },
   server: {
     port,

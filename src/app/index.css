@@ -11,42 +11,45 @@
   --opaque-button-border-intensity: -8;
   --elevate-1: rgba(0,0,0, .03);
   --elevate-2: rgba(0,0,0, .08);
-  /* Brighter "premium reactor" palette — surfaces lifted out of the murk,
-     borders made crisper / warmer so card edges read clearly. */
-  --background: 28 16% 10%;
-  --foreground: 0 0% 98%;
-  --border: 38 26% 34%;
-  --card: 28 17% 15%;
-  --card-foreground: 0 0% 98%;
-  --card-border: 38 30% 38%;
-  --sidebar: 28 17% 13%;
-  --sidebar-foreground: 0 0% 98%;
-  --sidebar-border: 38 26% 32%;
-  --sidebar-primary: 45 95% 58%;
+  /* Brighter "premium reactor" palette v2 — surfaces lifted further out of
+     the murk, warmer & cleaner. Background carries a touch more chroma so it
+     reads as warm graphite rather than mud; cards step up in luminance so the
+     bevel/border system has contrast to work with; gold primary pushed
+     brighter + more saturated for genuine pop on hero numbers & CTAs. */
+  --background: 30 18% 11%;
+  --foreground: 40 30% 99%;
+  --border: 40 30% 38%;
+  --card: 30 18% 17%;
+  --card-foreground: 40 30% 99%;
+  --card-border: 42 38% 44%;
+  --sidebar: 30 18% 14%;
+  --sidebar-foreground: 40 30% 99%;
+  --sidebar-border: 40 28% 34%;
+  --sidebar-primary: 44 100% 62%;
   --sidebar-primary-foreground: 0 0% 4%;
-  --sidebar-accent: 30 24% 20%;
-  --sidebar-accent-foreground: 0 0% 98%;
-  --sidebar-ring: 45 95% 58%;
-  --popover: 28 17% 15%;
-  --popover-foreground: 0 0% 98%;
-  --popover-border: 38 26% 34%;
-  --primary: 45 95% 58%;
+  --sidebar-accent: 32 28% 22%;
+  --sidebar-accent-foreground: 40 30% 99%;
+  --sidebar-ring: 44 100% 62%;
+  --popover: 30 18% 17%;
+  --popover-foreground: 40 30% 99%;
+  --popover-border: 40 30% 38%;
+  --primary: 44 100% 62%;
   --primary-foreground: 0 0% 4%;
-  --secondary: 30 18% 22%;
-  --secondary-foreground: 0 0% 98%;
-  --muted: 28 14% 20%;
-  --muted-foreground: 40 14% 72%;
-  --accent: 45 30% 22%;
-  --accent-foreground: 0 0% 96%;
-  --destructive: 0 78% 56%;
+  --secondary: 32 20% 24%;
+  --secondary-foreground: 40 30% 99%;
+  --muted: 30 16% 22%;
+  --muted-foreground: 42 18% 78%;
+  --accent: 44 36% 24%;
+  --accent-foreground: 40 30% 98%;
+  --destructive: 0 80% 58%;
   --destructive-foreground: 0 72% 98%;
-  --input: 38 24% 32%;
-  --ring: 45 95% 58%;
-  --chart-1: 45 90% 52%;
-  --chart-2: 0 72% 55%;
-  --chart-3: 45 65% 50%;
-  --chart-4: 45 90% 55%;
-  --chart-5: 0 72% 55%;
+  --input: 40 28% 34%;
+  --ring: 44 100% 62%;
+  --chart-1: 44 95% 56%;
+  --chart-2: 0 74% 57%;
+  --chart-3: 44 70% 54%;
+  --chart-4: 44 95% 58%;
+  --chart-5: 0 74% 57%;
   --font-sans: 'Space Grotesk', 'Inter', system-ui, sans-serif;
   --font-serif: Georgia, serif;
   --font-mono: 'DM Mono', 'Space Mono', 'SF Mono', monospace;
@@ -85,11 +88,11 @@
   --gain: 45 90% 52%;
   --loss: 0 72% 55%;
 
-  --neon-rgb: 212, 168, 50;
-  --neon-glow: 0 0 8px rgba(212, 168, 50, 0.40), 0 0 24px rgba(212, 168, 50, 0.15), 0 0 48px rgba(212, 168, 50, 0.06);
-  --neon-glow-sm: 0 0 6px rgba(212, 168, 50, 0.25), 0 0 16px rgba(212, 168, 50, 0.09);
-  --neon-glow-intense: 0 0 12px rgba(212, 168, 50, 0.50), 0 0 36px rgba(212, 168, 50, 0.22), 0 0 72px rgba(212, 168, 50, 0.09);
-  --gem-rgb: 212, 168, 50;
+  --neon-rgb: 246, 196, 70;
+  --neon-glow: 0 0 10px rgba(246, 196, 70, 0.48), 0 0 28px rgba(246, 196, 70, 0.20), 0 0 56px rgba(246, 196, 70, 0.08);
+  --neon-glow-sm: 0 0 7px rgba(246, 196, 70, 0.32), 0 0 18px rgba(246, 196, 70, 0.12);
+  --neon-glow-intense: 0 0 14px rgba(246, 196, 70, 0.60), 0 0 40px rgba(246, 196, 70, 0.28), 0 0 80px rgba(246, 196, 70, 0.12);
+  --gem-rgb: 246, 196, 70;
   --accent-red-rgb: 220, 38, 38;
   --accent-red-glow: 0 0 8px rgba(220, 38, 38, 0.25), 0 0 20px rgba(220, 38, 38, 0.08);
 }
@@ -100,41 +103,41 @@
   --opaque-button-border-intensity: 9;
   --elevate-1: rgba(255,255,255, .04);
   --elevate-2: rgba(255,255,255, .09);
-  /* Brighter "premium reactor" palette — kept in sync with :root above. */
-  --background: 28 16% 10%;
-  --foreground: 0 0% 98%;
-  --border: 38 26% 34%;
-  --card: 28 17% 15%;
-  --card-foreground: 0 0% 98%;
-  --card-border: 38 30% 38%;
-  --sidebar: 28 17% 13%;
-  --sidebar-foreground: 0 0% 98%;
-  --sidebar-border: 38 26% 32%;
-  --sidebar-primary: 45 95% 58%;
+  /* Brighter "premium reactor" palette v2 — kept in sync with :root above. */
+  --background: 30 18% 11%;
+  --foreground: 40 30% 99%;
+  --border: 40 30% 38%;
+  --card: 30 18% 17%;
+  --card-foreground: 40 30% 99%;
+  --card-border: 42 38% 44%;
+  --sidebar: 30 18% 14%;
+  --sidebar-foreground: 40 30% 99%;
+  --sidebar-border: 40 28% 34%;
+  --sidebar-primary: 44 100% 62%;
   --sidebar-primary-foreground: 0 0% 4%;
-  --sidebar-accent: 30 24% 20%;
-  --sidebar-accent-foreground: 0 0% 98%;
-  --sidebar-ring: 45 95% 58%;
-  --popover: 28 17% 15%;
-  --popover-foreground: 0 0% 98%;
-  --popover-border: 38 26% 34%;
-  --primary: 45 95% 58%;
+  --sidebar-accent: 32 28% 22%;
+  --sidebar-accent-foreground: 40 30% 99%;
+  --sidebar-ring: 44 100% 62%;
+  --popover: 30 18% 17%;
+  --popover-foreground: 40 30% 99%;
+  --popover-border: 40 30% 38%;
+  --primary: 44 100% 62%;
   --primary-foreground: 0 0% 4%;
-  --secondary: 30 18% 22%;
-  --secondary-foreground: 0 0% 98%;
-  --muted: 28 14% 20%;
-  --muted-foreground: 40 14% 72%;
-  --accent: 45 30% 22%;
-  --accent-foreground: 0 0% 96%;
-  --destructive: 0 78% 56%;
+  --secondary: 32 20% 24%;
+  --secondary-foreground: 40 30% 99%;
+  --muted: 30 16% 22%;
+  --muted-foreground: 42 18% 78%;
+  --accent: 44 36% 24%;
+  --accent-foreground: 40 30% 98%;
+  --destructive: 0 80% 58%;
   --destructive-foreground: 0 72% 98%;
-  --input: 38 24% 32%;
-  --ring: 45 95% 58%;
-  --chart-1: 45 90% 52%;
-  --chart-2: 0 72% 55%;
-  --chart-3: 45 65% 50%;
-  --chart-4: 45 90% 55%;
-  --chart-5: 0 72% 55%;
+  --input: 40 28% 34%;
+  --ring: 44 100% 62%;
+  --chart-1: 44 95% 56%;
+  --chart-2: 0 74% 57%;
+  --chart-3: 44 70% 54%;
+  --chart-4: 44 95% 58%;
+  --chart-5: 0 74% 57%;
   --shadow-2xs: 0px 2px 0px 0px hsl(0 0% 0% / 0.00);
   --shadow-xs: 0px 2px 0px 0px hsl(0 0% 0% / 0.00);
   --shadow-sm: 0px 2px 0px 0px hsl(0 0% 0% / 0.00), 0px 1px 2px -1px hsl(0 0% 0% / 0.00);
@@ -359,16 +362,25 @@
 
   .font-display {
     font-family: var(--font-display);
+    letter-spacing: 0.02em;
+    text-rendering: geometricPrecision;
+  }
+
+  /* Tighten large hero headings for a more intentional, "designed" feel —
+     opt-in via .heading-tight on big titles. */
+  .heading-tight {
+    letter-spacing: -0.02em;
+    font-weight: 800;
   }
 
   .text-neon {
-    color: hsl(45 90% 58%);
-    text-shadow: 0 0 8px rgba(212, 175, 55, 0.35);
+    color: hsl(44 100% 64%);
+    text-shadow: 0 0 10px rgba(246, 196, 70, 0.45), 0 0 22px rgba(246, 196, 70, 0.14);
   }
 
   .text-neon-value {
-    color: hsl(45 95% 60%);
-    text-shadow: 0 0 6px rgba(212, 175, 55, 0.28);
+    color: hsl(44 100% 66%);
+    text-shadow: 0 0 8px rgba(246, 196, 70, 0.38), 0 0 18px rgba(246, 196, 70, 0.12);
   }
 
   .glass-card {
@@ -989,18 +1001,19 @@
   text-rendering: geometricPrecision;
 }
 
-/* Gold gradient hero numbers */
+/* Gold gradient hero numbers — brighter, with a luminous highlight band so
+   the figure reads as polished metal catching light. */
 .num-gold {
   font-feature-settings: "lnum" 1, "tnum" 1;
   font-variant-numeric: tabular-nums lining-nums;
   font-weight: 700;
-  background: linear-gradient(135deg, #fcd34d 0%, #f59e0b 50%, #d97706 100%);
+  background: linear-gradient(135deg, #fff4cc 0%, #fcd34d 30%, #f7b733 58%, #e08a12 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-rendering: geometricPrecision;
-  letter-spacing: 0.01em;
-  filter: drop-shadow(0 1px 0 rgba(120, 53, 15, 0.25));
+  letter-spacing: 0.005em;
+  filter: drop-shadow(0 0 12px rgba(251,191,36,0.28)) drop-shadow(0 1px 0 rgba(120, 53, 15, 0.3));
 }
 
 /* Corner bracket HUD decoration */
@@ -1077,27 +1090,30 @@
   isolation: isolate;
   border: 1px solid hsl(var(--card-border));
   background:
-    radial-gradient(circle at top left, rgba(255,255,255,0.05), transparent 60%),
-    linear-gradient(180deg, hsl(var(--card)), hsl(28 16% 11%));
+    radial-gradient(circle at top left, rgba(255,236,190,0.09), transparent 58%),
+    linear-gradient(180deg, hsl(30 19% 19%), hsl(30 18% 12%));
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.10),
-    inset 0 -1px 0 rgba(0,0,0,0.40),
+    inset 0 1px 0 rgba(255,242,206,0.16),
+    inset 0 0 0 1px rgba(255,255,255,0.02),
+    inset 0 -1px 0 rgba(0,0,0,0.42),
     0 1px 0 rgba(0,0,0,0.30),
     0 10px 26px -12px rgba(0,0,0,0.55),
-    0 22px 50px -28px rgba(251,191,36,0.30);
+    0 24px 54px -28px rgba(251,191,36,0.34);
   transition:
-    transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 260ms cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 260ms cubic-bezier(0.22, 1, 0.36, 1);
+    transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 300ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 .premium-card:hover {
-  border-color: hsl(45 90% 55% / 0.55);
+  transform: translateY(-2px);
+  border-color: hsl(44 96% 60% / 0.62);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.14),
-    inset 0 -1px 0 rgba(0,0,0,0.40),
+    inset 0 1px 0 rgba(255,244,212,0.22),
+    inset 0 0 0 1px rgba(255,212,120,0.05),
+    inset 0 -1px 0 rgba(0,0,0,0.42),
     0 1px 0 rgba(0,0,0,0.30),
-    0 14px 32px -12px rgba(0,0,0,0.6),
-    0 26px 60px -26px rgba(251,191,36,0.45);
+    0 16px 36px -12px rgba(0,0,0,0.62),
+    0 30px 66px -26px rgba(251,191,36,0.52);
 }
 
 .gold-ring {
@@ -1114,11 +1130,11 @@
    animates). Defined after `.gold-ring` so it wins the `background` cascade. */
 .gold-ring-surface {
   background:
-    radial-gradient(circle at top left, rgba(255,255,255,0.05), transparent 55%),
-    linear-gradient(180deg, hsl(var(--card)), hsl(28 16% 10%));
+    radial-gradient(circle at top left, rgba(255,236,190,0.08), transparent 55%),
+    linear-gradient(180deg, hsl(30 19% 18%), hsl(30 18% 11%));
   box-shadow:
-    0 18px 44px -24px rgba(251,191,36,0.30),
-    inset 0 1px 0 rgba(255,255,255,0.05);
+    0 20px 48px -24px rgba(251,191,36,0.38),
+    inset 0 1px 0 rgba(255,242,206,0.08);
 }
 @media (min-width: 640px) {
   .gold-ring { border-radius: 1.25rem; }
@@ -1133,11 +1149,11 @@
   background: conic-gradient(
     from var(--gold-angle, 0deg),
     rgba(251,191,36,0.00)  0%,
-    rgba(251,191,36,0.20) 22%,
-    rgba(253,224,71,0.90) 47%,
-    rgba(255,255,255,0.98) 50%,
-    rgba(253,224,71,0.90) 53%,
-    rgba(251,191,36,0.20) 78%,
+    rgba(251,191,36,0.28) 20%,
+    rgba(253,224,71,0.95) 45%,
+    rgba(255,250,225,1.00) 50%,
+    rgba(253,224,71,0.95) 55%,
+    rgba(251,191,36,0.28) 80%,
     rgba(251,191,36,0.00) 100%
   );
   -webkit-mask:
@@ -1145,7 +1161,7 @@
     linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
           mask-composite: exclude;
-  animation: goldRingRotate 5.5s linear infinite;
+  animation: goldRingRotate 6.5s linear infinite;
   pointer-events: none;
   z-index: 1;
 }
@@ -1157,17 +1173,17 @@
   border-radius: 1.25rem;
   background: conic-gradient(
     from var(--gold-angle, 0deg),
-    transparent 0deg 80deg,
-    rgba(251,191,36,0.30) 110deg,
-    rgba(253,224,71,0.62) 125deg,
-    rgba(255,255,255,0.55) 130deg,
-    rgba(253,224,71,0.62) 135deg,
-    rgba(251,191,36,0.30) 150deg,
-    transparent 180deg 360deg
+    transparent 0deg 78deg,
+    rgba(251,191,36,0.40) 108deg,
+    rgba(253,224,71,0.72) 123deg,
+    rgba(255,250,225,0.68) 130deg,
+    rgba(253,224,71,0.72) 137deg,
+    rgba(251,191,36,0.40) 152deg,
+    transparent 182deg 360deg
   );
-  filter: blur(10px);
-  opacity: 0.45;
-  animation: goldRingRotate 5.5s linear infinite;
+  filter: blur(11px);
+  opacity: 0.55;
+  animation: goldRingRotate 6.5s linear infinite;
   pointer-events: none;
   z-index: 0;
 }
@@ -1175,8 +1191,8 @@
   .gold-ring::after {
     inset: -10px;
     border-radius: 1.5rem;
-    filter: blur(14px);
-    opacity: 0.55;
+    filter: blur(15px);
+    opacity: 0.65;
   }
 }
 /* Content must sit above the ring/halo pseudo-elements (z 0/1). Apply
@@ -1189,6 +1205,7 @@
   .gold-ring::before,
   .gold-ring::after { animation: none; }
   .premium-card { transition: none; }
+  .premium-card:hover { transform: none; }
 }
 
 /* Copy-button success ring */

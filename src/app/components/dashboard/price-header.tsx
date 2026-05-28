@@ -31,7 +31,7 @@ export function PriceHeader({ coin, isLoading }: PriceHeaderProps) {
         <span className="text-xs text-muted-foreground/70">{t("dashboard.priceLabel", { symbol: coin.symbol.toUpperCase() })}</span>
       </div>
       <div className="flex items-baseline gap-2.5 flex-wrap">
-        <span className="text-2xl font-bold tracking-tight leading-tight" data-testid="text-price">
+        <span className="num-gold text-[28px] font-extrabold tracking-[-0.02em] leading-none" data-testid="text-price">
           {formatUSD(coin.current_price)}
         </span>
         <Badge

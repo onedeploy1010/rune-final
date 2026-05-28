@@ -63,7 +63,9 @@ export function BottomNav() {
             return (
               <Link key={tab.path} href={tab.path} className="flex-1">
                 <motion.button
-                  className="relative flex flex-col items-center justify-center w-full py-2.5 px-1 gap-0.5"
+                  aria-label={t(`nav.${tab.id}`)}
+                  aria-current={isActive ? "page" : undefined}
+                  className="relative flex flex-col items-center justify-center w-full min-h-[48px] py-2.5 px-1 gap-0.5 rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/80"
                   whileTap={{ scale: 0.85 }}
                   transition={{ type: "spring", stiffness: 500, damping: 30 }}
                   data-testid={`nav-${tab.id}`}
@@ -133,7 +135,7 @@ export function BottomNav() {
                   <span
                     className="relative z-10 leading-none"
                     style={{
-                      fontSize: showZh ? 7.5 : 10.5,
+                      fontSize: showZh ? 9 : 10.5,
                       fontFamily: "monospace",
                       fontWeight: showZh ? 400 : 700,
                       letterSpacing: "0.10em",

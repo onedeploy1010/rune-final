@@ -284,8 +284,16 @@ export default function Dashboard() {
                         </div>
                         <span className="font-mono tabular-nums text-primary">{formatCompact(item.openInterestValue)}</span>
                       </div>
-                      <div className="h-1 rounded-full bg-muted/20 overflow-hidden">
-                        <div className="h-full rounded-full bg-primary/60" style={{ width: `${pct}%`, transition: "width 0.5s ease" }} />
+                      <div className="h-1.5 rounded-full bg-muted/25 overflow-hidden">
+                        <div
+                          className="h-full rounded-full"
+                          style={{
+                            width: `${pct}%`,
+                            transition: "width 0.6s cubic-bezier(0.22,1,0.36,1)",
+                            background: "linear-gradient(90deg, hsl(44 100% 62%), hsl(38 100% 56%))",
+                            boxShadow: "0 0 8px rgba(251,191,36,0.5)",
+                          }}
+                        />
                       </div>
                     </div>
                   );
@@ -353,14 +361,15 @@ export default function Dashboard() {
       <div className="px-4 lg:px-0 pb-2">
         <button
           onClick={() => navigate(`/market?coin=${selectedAsset}`)}
-          className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-[13px] font-bold transition-all active:scale-[0.98]"
+          className="group w-full flex items-center justify-center gap-2 py-3 rounded-xl text-[13px] font-bold tracking-wide uppercase transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98]"
           style={{
-            background: "linear-gradient(135deg, rgba(212,168,50,0.12), rgba(212,168,50,0.06))",
-            border: "1px solid rgba(212,168,50,0.2)",
-            color: "hsl(43,74%,52%)",
+            background: "linear-gradient(135deg, rgba(251,191,36,0.22), rgba(246,196,70,0.10) 60%, rgba(217,119,6,0.10))",
+            border: "1px solid rgba(251,191,36,0.34)",
+            color: "hsl(44,100%,68%)",
+            boxShadow: "0 6px 20px -8px rgba(251,191,36,0.45), inset 0 1px 0 rgba(255,255,255,0.10)",
           }}
         >
-          <BarChart3 className="h-4 w-4" />
+          <BarChart3 className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
           {t("dashboard.goToAnalysis")}
         </button>
       </div>

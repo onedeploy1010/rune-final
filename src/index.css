@@ -97,21 +97,21 @@
 }
 
 :root, .dark {
-  --background: 228 26% 13%;
-  --foreground: 210 40% 98%;
-  
-  --card: 228 22% 19%;
-  --card-foreground: 210 40% 98%;
-  --card-border: 228 22% 32%;
+  --background: 228 24% 14%;
+  --foreground: 210 40% 99%;
+
+  --card: 228 20% 21%;
+  --card-foreground: 210 40% 99%;
+  --card-border: 228 20% 35%;
   
   --popover: 228 24% 12%;
   --popover-foreground: 210 40% 98%;
   --popover-border: 228 22% 22%;
   
-  --primary: 38 95% 55%;
+  --primary: 42 100% 60%;
   --primary-foreground: 230 30% 5%;
-  --primary-border: 38 90% 42%;
-  --glow-primary: 0 0 24px hsl(38, 95%, 55%, 0.5);
+  --primary-border: 40 92% 46%;
+  --glow-primary: 0 0 28px hsl(42, 100%, 60%, 0.55);
   
   --secondary: 228 22% 16%;
   --secondary-foreground: 210 40% 98%;
@@ -131,9 +131,9 @@
   
   --border: 228 22% 22%;
   --input: 228 22% 22%;
-  --ring: 38 95% 55%;
-  
-  --chart-1: 38 90% 50%;
+  --ring: 42 100% 60%;
+
+  --chart-1: 42 95% 54%;
   --chart-2: 173 58% 39%;
   --chart-3: 217 76% 58%;
   --chart-4: 0 84% 60%;
@@ -167,8 +167,11 @@
 
   body {
     @apply font-sans antialiased bg-background text-foreground selection:bg-primary selection:text-primary-foreground;
-    background-image: radial-gradient(circle at 1px 1px, hsl(38, 95%, 55%, 0.12) 1px, transparent 0);
-    background-size: 32px 32px;
+    background-image:
+      radial-gradient(ellipse 120% 80% at 50% -10%, hsl(42, 100%, 60%, 0.07), transparent 60%),
+      radial-gradient(circle at 1px 1px, hsl(42, 100%, 60%, 0.14) 1px, transparent 0);
+    background-size: 100% 100%, 32px 32px;
+    background-attachment: fixed, scroll;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -221,13 +224,13 @@
     font-feature-settings: "lnum" 1, "tnum" 1;
     font-variant-numeric: tabular-nums lining-nums;
     font-weight: 700;
-    background: linear-gradient(135deg, #fcd34d 0%, #f59e0b 50%, #d97706 100%);
+    background: linear-gradient(135deg, #fff4cc 0%, #fcd34d 30%, #f7b733 58%, #e08a12 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-rendering: geometricPrecision;
-    letter-spacing: 0.01em;
-    filter: drop-shadow(0 1px 0 hsl(38, 90%, 20%, 0.25));
+    letter-spacing: 0.005em;
+    filter: drop-shadow(0 0 12px hsl(42, 100%, 60%, 0.28)) drop-shadow(0 1px 0 hsl(38, 90%, 20%, 0.3));
   }
 
   /* Shimmer — animated light sweep on key numbers */

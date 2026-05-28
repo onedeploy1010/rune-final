@@ -4,19 +4,21 @@ import { Route, Switch, useLocation } from "wouter";
 import { AppLayout } from "@/components/layout";
 import { RuneOnboarding } from "@/components/rune/rune-onboarding";
 
-import Home          from "@/pages/home";
-import Projects      from "@/pages/projects";
-import ProjectDetail from "@/pages/project-detail";
-import Tools         from "@/pages/tools";
-import Rune          from "@/pages/rune";
-import B18           from "@/pages/b18";
-import Hyperliquid   from "@/pages/hyperliquid";
-import LegendAtm     from "@/pages/legend-atm";
-import Recruit       from "@/pages/recruit";
-import Resources     from "@/pages/resources";
-import PublicDashboard from "@/pages/dashboard";
-import Tutorial      from "@/pages/tutorial";
-import NotFound      from "@/pages/not-found";
+// Marketing pages are lazy-loaded so each route ships its own chunk instead
+// of bloating the single entry bundle (recharts-heavy pages especially).
+const Home          = lazy(() => import("@/pages/home"));
+const Projects      = lazy(() => import("@/pages/projects"));
+const ProjectDetail = lazy(() => import("@/pages/project-detail"));
+const Tools         = lazy(() => import("@/pages/tools"));
+const Rune          = lazy(() => import("@/pages/rune"));
+const B18           = lazy(() => import("@/pages/b18"));
+const Hyperliquid   = lazy(() => import("@/pages/hyperliquid"));
+const LegendAtm     = lazy(() => import("@/pages/legend-atm"));
+const Recruit       = lazy(() => import("@/pages/recruit"));
+const Resources     = lazy(() => import("@/pages/resources"));
+const PublicDashboard = lazy(() => import("@/pages/dashboard"));
+const Tutorial      = lazy(() => import("@/pages/tutorial"));
+const NotFound      = lazy(() => import("@/pages/not-found"));
 
 // Lazy-load the dashboard shell — it wraps its inner routes in
 // <WouterRouter base="/app">, which strips the /app prefix so the inner
@@ -49,6 +51,7 @@ export default function AppRouter() {
         </Suspense>
       ) : (
         <AppLayout>
+          <Suspense fallback={<Loading />}>
           <Switch>
         <Route path="/" component={Home} />
         <Route path="/projects" component={Projects} />
@@ -65,6 +68,7 @@ export default function AppRouter() {
         <Route path="/tutorial"   component={Tutorial} />
             <Route component={NotFound} />
           </Switch>
+          </Suspense>
         </AppLayout>
       )}
     </>
